@@ -18,12 +18,12 @@ public class Hangman {
     public static void main(String args[]) {
         Hangman hangman = new Hangman();
         System.out.println(hangman.word);
-        System.out.println(hangman.getHiddeWord());
+        System.out.println(hangman.getHiddenWord());
 
         while (true) {
             hangman.guess(hangman.sc.next());
             System.out.println(hangman.getBadLettersUsed());
-            System.out.println(hangman.getHiddeWord());
+            System.out.println(hangman.getHiddenWord());
             System.out.println(hangman.getGuessesLeft());
         }
 
@@ -63,32 +63,8 @@ public class Hangman {
 
 
     //Returns the current word, hiding all the letters the user hasn't guessed yet Example: Word is "N-KLAS". java.lang.String
+    //TODO stor bokstav && flera lika dana bokstäver
     public String getHiddenWord() {
-        StringBuilder sb = new StringBuilder();
-        //for every character in word
-        for (int i = 0; i < word.length();) {
-            //for every guessed letter
-
-            for (String guesses: guessedLetters) {
-
-                //bokstaven i ordet
-                char letterInWord = word.charAt(i);
-
-                // TODO om bokstaven finns i ordet lägg till den
-                if (letterInWord == guesses.charAt(0) ) {
-                    sb.append(letterInWord);
-                }
-                //TODO annars lägg till ett - istället
-                else {
-                    sb.append("-");
-                }
-            }
-            sb.append("a");
-        }
-        return sb.toString();
-    }
-
-    public String getHiddeWord() {
         StringBuilder sb = new StringBuilder();
         String letter;
         for (int i = 0; i < word.length(); i++) {
@@ -107,6 +83,7 @@ public class Hangman {
      public void guess(String guess) {
 
         if (isGameContinuing()) {
+            guess = guess.toLowerCase();
             //TODO Makes a guess for a letter.
 
             //if letter is all ready used
@@ -166,7 +143,7 @@ public class Hangman {
     //randomizes a new word from the list
     public void newWord() {
         int index = random.nextInt(words.size());
-        word = words.get(index);
+        word = words.get(index).toLowerCase();
 
         hiddenWord.clear();
         for (int i = 0; i < word.length(); i++) {
