@@ -10,10 +10,10 @@ public class Hangman {
     private ArrayList<String> guessedLetters = new ArrayList<>();
     private ArrayList<Boolean> hiddenWord = new ArrayList<>();
     private String word = "Hello";
-    private char guessingLetter;
     private int guessesLeft = 9;
     private static Random random = new Random();
     private Scanner sc = new Scanner(System.in);
+    private String error =  "false";
 
     public static void main(String args[]) {
         Hangman hangman = new Hangman();
@@ -36,11 +36,11 @@ public class Hangman {
     }
     public Hangman() {
        ArrayList<String> words = new ArrayList<>();
-       /*words.add("Hej");
+       words.add("Hej");
        words.add("Panda");
        words.add("Ferrari");
         words.add("Klocka");
-        words.add("Blomma");*/
+        words.add("Blomma");
        words.add("Hello");
        this.words = words;
        newWord();
@@ -61,9 +61,8 @@ public class Hangman {
         return builder.toString();
     }
 
-
     //Returns the current word, hiding all the letters the user hasn't guessed yet Example: Word is "N-KLAS". java.lang.String
-    //TODO stor bokstav && flera lika dana bokstäver
+    //TODO flera lika dana bokstäver
     public String getHiddenWord() {
         StringBuilder sb = new StringBuilder();
         String letter;
@@ -79,32 +78,63 @@ public class Hangman {
         return sb.toString();
     }
 
-
-     public void guess(String guess) {
+    public void guess(String guess) {
 
         if (isGameContinuing()) {
+
+            //Make everything lowercase
             guess = guess.toLowerCase();
-            //TODO Makes a guess for a letter.
 
-            //if letter is all ready used
-            if (hasUsedLetter(guess)) {
-                return;
-                //TODO något
-            }
-            //adds letter to guesses
-            guessedLetters.add(guess);
+            if(isGuessCorrect(guess)) {
+                //adds letter to guesses
+                guessedLetters.add(guess);
 
-            //if letter in word
-            if (word.contains(guess)) {
-                int letterNumber = word.indexOf(guess);
-                hiddenWord.set(letterNumber, true);
-            } else {
-                guessesLeft--;
+                //if letter in word
+                guessForLetterInWord(guess);
             }
         }
     }
 
+    public String getError() {
+        return error;
+    }
 
+    private boolean isGuessCorrect(String guess) {
+        //TODO Makes a guess for a letter.
+        if (guess.length() > 1) {
+            //TODO toMannyLetters();
+            error = "many";
+           return false;
+        }
+
+        //if letter is all ready used
+        else if (hasUsedLetter(guess)) {
+
+            //TODO letterallreadyused();
+            error = "used";
+            return false;
+        }
+        else {
+            error = "false";
+            return true;
+        }
+    }
+
+    private void guessForLetterInWord(String guess) {
+        if (word.contains(guess)) {
+            //loop through word
+            for (int i = 0; i < word.length(); i++) {
+                //test letter for letter
+                 if (word.charAt(i) == guess.charAt(0)) {
+                     //show the letter
+                     hiddenWord.set(i, true);
+                 }
+            }
+
+        } else {
+            guessesLeft--;
+        }
+    }
 
 
     //Returns the current word, without any hidden letters.
@@ -137,7 +167,7 @@ public class Hangman {
 
     //Checks to see if the user has guessed all letters correctly
     public boolean hasWon() {
-        return getHiddenWord().toString().equals(word);
+        return getHiddenWord().equals(word);
     }
 
     //randomizes a new word from the list

@@ -1,5 +1,7 @@
 package com.example.dev.hangman;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,5 +27,10 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void InfoButtonClicked(View view) {
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        //transaction.add(R.id.container,GameFragment.class,"param1");
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
