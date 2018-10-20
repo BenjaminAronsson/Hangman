@@ -36,9 +36,7 @@ public class GameActivity extends AppCompatActivity {
 
         hangmanView.setTag(bild);
 
-
-
-
+        
         //TODO add word list from web
         hangman = new Hangman();
 
@@ -62,70 +60,56 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    //TODO
     public void guessButtonPressed(View view) {
-
-
 
         if(hangman.isGameContinuing()) {
 
-            String input = getInput();
-            //testar att input är godkänt
+            //gets input from textfield
+            String input = getInput(inputField);
+
+            //tests if input is valid
             inputCorrect(input); //TODO check
 
+            //guesses
             hangman.guess(input);
 
-            /*//tar emot gisning
-            String guess = getInput();
-            //gissar
-            errorHandler(hangman.getError());
-
-            hangman.guess(guess);*/
-
-
-            /*if (hangman.hasWon()) {
-                //TODO spelet är slut
-            } else if (hangman.hasLost()) {
-                //TODO spelet är slut
-            }*/
+            //draws layout
             layoutUpdate();
+
+            //test if player won or lost
+            if (hangman.hasWon()) {
+                gameWon();
+            } else if (hangman.hasLost()) {
+                gameLost();
+                guesses.setText(hangman.getChoosenWord());
+            }
         }
+    }
 
+    private void gameWon() {
+        //TODO
+    }
 
-
+    private void gameLost() {
+        //TODO
     }
 
     private void layoutUpdate() {
 
-        //ändrar bilden
+        //update hangman pic
         if (hangman.getGuessesLeft() < 10 && bild > 0) {
             hangmanView.setImageDrawable(images.get(hangman.getGuessesLeft()));
             hangmanView.setTag(hangman.getGuessesLeft());
         }
 
-        //guesses.setText(hangman.getBadLettersUsed());
+        //updates text field
         guesses.setText(hangman.getHiddenWord());
         guessesMade.setText(hangman.getBadLettersUsed());
-        //guesses.setText(input);
         inputField.setText("");
     }
 
-    private void errorHandler(String error) {
-        switch (error) {
-            case "many":
-                toastWrongInput();
-                break;
-            case "used":
-                toastDuplicateGuess();
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    private String getInput() {
-        //tar gisning från input
+    private String getInput(EditText inputField) {
+        //takes guess from input
 
      String input = inputField.getText().toString();
     return input;
@@ -144,19 +128,12 @@ public class GameActivity extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * Show a toast
-     *
-     */
     private void toastWrongInput() {
         // Toast myToast = Toast.makeText(this, message, duration);
         Toast myToast = Toast.makeText(this, "You can only guess on one letter at a time!", Toast.LENGTH_SHORT);
         myToast.show();
     }
-    /**
-     * Show a toast
-     *
-     */
+
     private void toastDuplicateGuess() {
         // Toast myToast = Toast.makeText(this, message, duration);
         Toast myToast = Toast.makeText(this, "You can only guess on a letter once!", Toast.LENGTH_SHORT);

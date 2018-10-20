@@ -2,7 +2,6 @@ package com.example.dev.hangman;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Hangman {
     //fields
@@ -12,22 +11,6 @@ public class Hangman {
     private String word = "Hello";
     private int guessesLeft = 9;
     private static Random random = new Random();
-    private Scanner sc = new Scanner(System.in);
-    private String error =  "false";
-
-    public static void main(String args[]) {
-        Hangman hangman = new Hangman();
-        System.out.println(hangman.word);
-        System.out.println(hangman.getHiddenWord());
-
-        while (true) {
-            hangman.guess(hangman.sc.next());
-            System.out.println(hangman.getBadLettersUsed());
-            System.out.println(hangman.getHiddenWord());
-            System.out.println(hangman.getGuessesLeft());
-        }
-
-    }
 
 
     public Hangman(ArrayList<String> words) {
@@ -62,7 +45,6 @@ public class Hangman {
     }
 
     //Returns the current word, hiding all the letters the user hasn't guessed yet Example: Word is "N-KLAS". java.lang.String
-    //TODO flera lika dana bokstäver
     public String getHiddenWord() {
         StringBuilder sb = new StringBuilder();
         String letter;
@@ -95,27 +77,18 @@ public class Hangman {
         }
     }
 
-    public String getError() {
-        return error;
-    }
 
     private boolean isGuessCorrect(String guess) {
-        //TODO Makes a guess for a letter.
+        //if more then one letter
         if (guess.length() > 1) {
-            //TODO toMannyLetters();
-            error = "many";
            return false;
         }
-
         //if letter is all ready used
         else if (hasUsedLetter(guess)) {
-
-            //TODO letterallreadyused();
-            error = "used";
             return false;
         }
+
         else {
-            error = "false";
             return true;
         }
     }
@@ -146,8 +119,6 @@ public class Hangman {
     public int getGuessesLeft() {
         return guessesLeft;
     }
-
-
 
 
     // Checks to see if the user has used up all her guesses
