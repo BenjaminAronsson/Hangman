@@ -21,7 +21,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView guessesMade;
     private ImageView hangmanView;
     private SharedPreferences sharedPreferences;
-    private List<Drawable> images= new ArrayList<>(); //spara bilder innan
+    private List<Drawable> images= new ArrayList<>();
     private int bild = 9;
     //TODO save pic, guesses, hidden word, chosen word
 
@@ -33,10 +33,10 @@ public class GameActivity extends AppCompatActivity {
         guesses = findViewById(R.id.hiddenWord);
         guessesMade = findViewById(R.id.guessedLetters);
         hangmanView = findViewById(R.id.hangmanView);
-
         hangmanView.setTag(bild);
 
         
+
         //TODO add word list from web
         hangman = new Hangman();
 
@@ -121,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
             toastWrongInput();
             return false;
         }
-        if (hangman.hasUsedLetter(input)) {
+        if (hangman.hasUsedLetter(input.toLowerCase())) {
             toastDuplicateGuess();
             return false;
         }

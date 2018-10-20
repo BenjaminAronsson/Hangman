@@ -25,18 +25,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/autour_one"
         android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hangmanView"
-        tools:text="Hidden word" />
+        tools:text="Hidden" />
 
     <Button
         android:id="@+id/guessButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
         android:background="@color/colorPrimary"
         android:fontFamily="@font/autour_one"
         android:onClick="guessButtonPressed"
@@ -44,6 +47,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guessedLetters" />
 
     <TextView
@@ -62,16 +66,15 @@
 
     <EditText
         android:id="@+id/guessText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="129dp"
+        android:layout_height="47dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Guess"
-        android:inputType="textCapCharacters|textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hiddenWord"
-        app:layout_constraintTop_toBottomOf="@+id/hangmanView"
+        android:inputType="textCapCharacters"
+        app:layout_constraintEnd_toStartOf="@+id/guessButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guessButton"
         tools:text="Guess" />
 </android.support.constraint.ConstraintLayout>
