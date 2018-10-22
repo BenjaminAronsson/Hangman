@@ -1,16 +1,42 @@
 package com.example.dev.hangman;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Hangman {
     //fields
     private ArrayList<String> words;
+    private int guessesLeft = 9;
+    private static Random random = new Random();
     private ArrayList<String> guessedLetters = new ArrayList<>();
     private ArrayList<Boolean> hiddenWord = new ArrayList<>();
     private String word = "Hello";
-    private int guessesLeft = 9;
-    private static Random random = new Random();
+
+
+    public void setGuessedLetters(ArrayList<String> guessedLetters) {
+        this.guessedLetters = guessedLetters;
+    }
+
+    public void setGuessesLeft(int guessesLeft) {
+        this.guessesLeft = guessesLeft;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public ArrayList<String> getGuessedLetters() {
+        return guessedLetters;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+
 
 
     public Hangman(ArrayList<String> words) {
@@ -168,4 +194,5 @@ public class Hangman {
     public boolean isGameContinuing() {
         return hasWon() || !hasLost();
     }
+
 }

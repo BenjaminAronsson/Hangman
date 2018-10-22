@@ -15,30 +15,45 @@ import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
 
-    private Hangman hangman;
+    private Hangman hangman = new Hangman();;
     private EditText inputField;
     private TextView guesses;
     private TextView guessesMade;
     private ImageView hangmanView;
-    //private SharedPreferences sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
+    private SharedPreferences sharedPreferences;
     private List<Drawable> images= new ArrayList<>();
-    private int bild = 9;
+    private final int BILD = 9;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //test if activity is reactivated from on start
+        if( savedInstanceState != null)
+        {
+            //Restart of activity after configuration change
+            String i = savedInstanceState.getString("guessedLetters", "");
+            int a = savedInstanceState.getInt("guessesLeft", BILD);
+            hangman.setGuessesLeft(a);
+            //im.setImageResource(id);
+            //Drawable drawable = images.get(i);
+            //im.setImageDrawable(drawable);
+            //im.setTag(i);
+        }
+
         setContentView(R.layout.activity_game_activitty);
         inputField = findViewById(R.id.guessText);
         guesses = findViewById(R.id.hiddenWord);
         guessesMade = findViewById(R.id.guessedLetters);
         hangmanView = findViewById(R.id.hangmanView);
-        hangmanView.setTag(bild);
+        hangmanView.setTag(BILD);
+        sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
 
 
 
         //TODO add word list from web
-        hangman = new Hangman();
+
 
         //Preload images TODO add to web
         images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
@@ -58,20 +73,31 @@ public class GameActivity extends AppCompatActivity {
 
         //loadDataState();
 
-       /* if( savedInstanceState != null)
-        {
-            //Restart of activity after configuration change
-            int i = savedInstanceState.getInt("currentPic");
-            //im.setImageResource(id);
-            Drawable drawable = images.get(i);
-            im.setImageDrawable(drawable);
-            im.setTag(i);
-        }*/
+
+
+        //save data
+        SharedPreferences prefs = getSharedPreferences("default", MODE_PRIVATE);
+        String word = prefs.getString("chosen word", "Hello");//"No name defined" is the default value.
+        int guessesLeft = prefs.getInt("GuessesLeft", 0); //0 is the default value.
+
+        hangman.setGuessesLeft(guessesLeft);
+        hangman.setWord(word);
+
 
         layoutUpdate();
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // MY_PREFS_NAME - a static String variable like:
+        //public static final String MY_PREFS_NAME = "MyPrefsFile";
+        SharedPreferences.Editor editor = getSharedPreferences("default", MODE_PRIVATE).edit();
+        editor.putString("Chosen word", hangman.getChoosenWord());
+        editor.putInt("GuessesLeft", hangman.getGuessesLeft());
+        editor.commit();
+    }
 
     public void guessButtonPressed(View view) {
 
@@ -110,7 +136,7 @@ public class GameActivity extends AppCompatActivity {
     private void layoutUpdate() {
 
         //update hangman pic
-        if (hangman.getGuessesLeft() < 10 && bild > 0) {
+        if (hangman.getGuessesLeft() < 10 && BILD > 0) {
             hangmanView.setImageDrawable(images.get(hangman.getGuessesLeft()));
             hangmanView.setTag(hangman.getGuessesLeft());
         }
