@@ -33,12 +33,19 @@ public class Hangman {
     public String getBadLettersUsed() {
         //creates string builder
         StringBuilder builder = new StringBuilder();
+        int t = 0;
         //loop for each guess made
         for (String letter : guessedLetters) {
             //If the letter is not in the word
             if (!word.contains(letter)) {
-                //adds the
-                builder.append(", " +letter);
+                if (t == 0) {
+                    builder.append(letter);
+                    t++;
+                }
+                else {
+                    //adds the
+                    builder.append(", " + letter);
+                }
             }
         }
         return builder.toString();
@@ -77,17 +84,23 @@ public class Hangman {
         }
     }
 
-
     private boolean isGuessCorrect(String guess) {
         //if more then one letter
-        if (guess.length() > 1) {
+        if (guess.length() > 1 ) {
            return false;
+        }
+        //if no letter
+        else if (guess.length() <= 0) {
+            return false;
+        }
+        //if letter is not letter
+        else if(!Character.isAlphabetic(guess.charAt(0))) {
+            return false;
         }
         //if letter is all ready used
         else if (hasUsedLetter(guess)) {
             return false;
         }
-
         else {
             return true;
         }

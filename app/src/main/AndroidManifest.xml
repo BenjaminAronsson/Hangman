@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".GameActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysVisible"
             android:screenOrientation="portrait">
         </activity>

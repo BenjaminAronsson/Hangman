@@ -130,25 +130,47 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private boolean inputCorrect(String input) {
+        //test for more then one character
         if (input.length() > 1) {
             toastWrongInput();
             return false;
         }
-        if (hangman.hasUsedLetter(input.toLowerCase())) {
+        //test for no input
+        else if (input.length() <= 0) {
+            toastNoInput();
+            return false;
+        }
+        //test for letter all ready used
+        else if (hangman.hasUsedLetter(input.toLowerCase())) {
             toastDuplicateGuess();
             return false;
         }
-        return true;
+        //test for special character
+        else if(!Character.isAlphabetic(input.charAt(0))) {
+            toastNoLetter();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    private void toastNoInput() {
+        Toast myToast = Toast.makeText(this, "You must enter a letter!", Toast.LENGTH_LONG);
+        myToast.show();
+    }
+
+    private void toastNoLetter() {
+        Toast myToast = Toast.makeText(this, "You can only use letters!", Toast.LENGTH_LONG);
+        myToast.show();
     }
 
     private void toastWrongInput() {
-        // Toast myToast = Toast.makeText(this, message, duration);
         Toast myToast = Toast.makeText(this, "You can only guess on one letter at a time!", Toast.LENGTH_LONG);
         myToast.show();
     }
 
     private void toastDuplicateGuess() {
-        // Toast myToast = Toast.makeText(this, message, duration);
         Toast myToast = Toast.makeText(this, "You can only guess on the same letter once!", Toast.LENGTH_LONG);
         myToast.show();
     }
