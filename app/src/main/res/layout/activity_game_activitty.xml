@@ -76,5 +76,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guessButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guessButton"
-        tools:text="Guess" />
+        tools:text="Guess"
+        android:theme="@style/MyEditTextStyle2"
+        />
 </android.support.constraint.ConstraintLayout>

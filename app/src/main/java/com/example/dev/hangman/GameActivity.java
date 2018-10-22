@@ -20,10 +20,10 @@ public class GameActivity extends AppCompatActivity {
     private TextView guesses;
     private TextView guessesMade;
     private ImageView hangmanView;
-    private SharedPreferences sharedPreferences;
+    //private SharedPreferences sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
     private List<Drawable> images= new ArrayList<>();
     private int bild = 9;
-    //TODO save pic, guesses, hidden word, chosen word
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
         hangmanView = findViewById(R.id.hangmanView);
         hangmanView.setTag(bild);
 
-        
+
 
         //TODO add word list from web
         hangman = new Hangman();
@@ -56,9 +56,22 @@ public class GameActivity extends AppCompatActivity {
         Drawable drawable = images.get(hangman.getGuessesLeft());
         hangmanView.setImageDrawable(drawable);
 
+        //loadDataState();
+
+       /* if( savedInstanceState != null)
+        {
+            //Restart of activity after configuration change
+            int i = savedInstanceState.getInt("currentPic");
+            //im.setImageResource(id);
+            Drawable drawable = images.get(i);
+            im.setImageDrawable(drawable);
+            im.setTag(i);
+        }*/
+
         layoutUpdate();
 
     }
+
 
     public void guessButtonPressed(View view) {
 
@@ -130,13 +143,13 @@ public class GameActivity extends AppCompatActivity {
 
     private void toastWrongInput() {
         // Toast myToast = Toast.makeText(this, message, duration);
-        Toast myToast = Toast.makeText(this, "You can only guess on one letter at a time!", Toast.LENGTH_SHORT);
+        Toast myToast = Toast.makeText(this, "You can only guess on one letter at a time!", Toast.LENGTH_LONG);
         myToast.show();
     }
 
     private void toastDuplicateGuess() {
         // Toast myToast = Toast.makeText(this, message, duration);
-        Toast myToast = Toast.makeText(this, "You can only guess on a letter once!", Toast.LENGTH_SHORT);
+        Toast myToast = Toast.makeText(this, "You can only guess on the same letter once!", Toast.LENGTH_LONG);
         myToast.show();
     }
 

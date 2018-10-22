@@ -3,6 +3,8 @@ package com.example.dev.hangman;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,24 +15,29 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //fragmentTransaction.add(R.id.fragment_container, new Fragment());
+        fragmentTransaction.commit();
     }
 
     public void startButtonClicked(View view) {
         Intent intent = new Intent(this, GameActivity.class);
-
-        // Get the text view
-        //noteView  = findViewById(R.id.editText);
-        //String note = noteView.getText().toString();
-
-        //intent.putExtra("Message", note);
         startActivity(intent);
     }
 
     public void InfoButtonClicked(View view) {
-        FragmentManager manager = getFragmentManager();
+        /*FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        //transaction.add(R.id.container,GameFragment.class,"param1");
+        transaction.add(R.id.container, GameFragment.class , "game" );
         transaction.addToBackStack(null);
         transaction.commit();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.container, fragmentObject);
+        ft.commit();
+
+        //Intent i = new Intent(StartActivity.this, FragmentActivity.class);
+        //startActivity(i);*/
     }
 }
