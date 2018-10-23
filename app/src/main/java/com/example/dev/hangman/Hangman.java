@@ -1,8 +1,5 @@
 package com.example.dev.hangman;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,6 +11,8 @@ public class Hangman {
     private ArrayList<String> guessedLetters = new ArrayList<>();
     private ArrayList<Boolean> hiddenWord = new ArrayList<>();
     private String word = "Hello";
+    private static Hangman data = null;
+
 
 
     public void setGuessedLetters(ArrayList<String> guessedLetters) {
@@ -35,8 +34,6 @@ public class Hangman {
     public String getWord() {
         return word;
     }
-
-
 
 
     public Hangman(ArrayList<String> words) {
@@ -82,7 +79,7 @@ public class Hangman {
         StringBuilder sb = new StringBuilder();
         String letter;
         for (int i = 0; i < word.length(); i++) {
-            if (!hiddenWord.get(i)) {
+            if (hiddenWord.get(i) == null || !hiddenWord.get(i) ) {
                 sb.append("-");
             }
             else {
@@ -148,7 +145,6 @@ public class Hangman {
         }
     }
 
-
     //Returns the current word, without any hidden letters.
     public String getChoosenWord() {
         return word;
@@ -158,7 +154,6 @@ public class Hangman {
     public int getGuessesLeft() {
         return guessesLeft;
     }
-
 
     // Checks to see if the user has used up all her guesses
     public boolean hasLost() {
@@ -192,7 +187,26 @@ public class Hangman {
     }
 
     public boolean isGameContinuing() {
-        return hasWon() || !hasLost();
+        return !(hasWon() || hasLost());
+
     }
 
+    public void newGame() {
+        newWord();
+        guessesLeft = 9;
+        guessedLetters = new ArrayList<>(); //TODO clear old list
+    }
+
+    public Hangman loadGame() {
+
+            if (data == null){
+                data = new Hangman();
+            }
+            return data;
+
+    }
+
+    public void saveGame() {
+        Hangman.data = this;
+    }
 }

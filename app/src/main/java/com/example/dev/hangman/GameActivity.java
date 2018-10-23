@@ -1,7 +1,9 @@
 package com.example.dev.hangman;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GameActivity extends AppCompatActivity {
 
-    private Hangman hangman = new Hangman();;
+    private Hangman hangman = new Hangman();
     private EditText inputField;
     private TextView guesses;
     private TextView guessesMade;
@@ -23,24 +27,27 @@ public class GameActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private List<Drawable> images= new ArrayList<>();
     private final int BILD = 9;
+    // This is the game object
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        hangman = hangman.loadGame();
         //test if activity is reactivated from on start
         if( savedInstanceState != null)
         {
             //Restart of activity after configuration change
-            String i = savedInstanceState.getString("guessedLetters", "");
-            int a = savedInstanceState.getInt("guessesLeft", BILD);
-            hangman.setGuessesLeft(a);
-            //im.setImageResource(id);
-            //Drawable drawable = images.get(i);
-            //im.setImageDrawable(drawable);
-            //im.setTag(i);
+
+
         }
+
+        //LoadPreferences();
+
+
 
         setContentView(R.layout.activity_game_activitty);
         inputField = findViewById(R.id.guessText);
@@ -71,17 +78,11 @@ public class GameActivity extends AppCompatActivity {
         Drawable drawable = images.get(hangman.getGuessesLeft());
         hangmanView.setImageDrawable(drawable);
 
-        //loadDataState();
 
 
 
-        //save data
-        SharedPreferences prefs = getSharedPreferences("default", MODE_PRIVATE);
-        String word = prefs.getString("chosen word", "Hello");//"No name defined" is the default value.
-        int guessesLeft = prefs.getInt("GuessesLeft", 0); //0 is the default value.
 
-        hangman.setGuessesLeft(guessesLeft);
-        hangman.setWord(word);
+
 
 
         layoutUpdate();
@@ -91,11 +92,41 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        //SavePreferences();
+        hangman.saveGame();
+
+    }
+
+    private void LoadPreferences() {
+
+
+
+        //save data
+        SharedPreferences prefs = getSharedPreferences("default", MODE_PRIVATE);
+        String word = prefs.getString("chosen word", "Hello");//"No name defined" is the default value.
+        int guessesLeft = prefs.getInt("Guesses left", 0); //0 is the default value.
+        Set<String> temp = prefs.getStringSet("guesses made",  new HashSet<String>());//TODO null
+
+        //Set<String> userAllSet = temp;
+        ArrayList<String> guessedLetter = new ArrayList<String>(temp);
+
+            hangman.setGuessesLeft(guessesLeft);
+            hangman.setWord(word);
+            hangman.setGuessedLetters(guessedLetter);
+
+    }
+
+    private void SavePreferences() {
         // MY_PREFS_NAME - a static String variable like:
         //public static final String MY_PREFS_NAME = "MyPrefsFile";
         SharedPreferences.Editor editor = getSharedPreferences("default", MODE_PRIVATE).edit();
         editor.putString("Chosen word", hangman.getChoosenWord());
-        editor.putInt("GuessesLeft", hangman.getGuessesLeft());
+        editor.putInt("Guesses left", hangman.getGuessesLeft());
+
+        //Set the values
+        Set<String> guessedLetters = new HashSet<String>();
+        guessedLetters.addAll(hangman.getGuessedLetters());
+        editor.putStringSet("Guesses made", guessedLetters);
         editor.commit();
     }
 
@@ -123,14 +154,17 @@ public class GameActivity extends AppCompatActivity {
                 guesses.setText(hangman.getChoosenWord());
             }
         }
+        inputField.setText("");
     }
 
     private void gameWon() {
         //TODO
+        startNewGame();
     }
 
     private void gameLost() {
         //TODO
+        startNewGame();
     }
 
     private void layoutUpdate() {
@@ -201,5 +235,20 @@ public class GameActivity extends AppCompatActivity {
         myToast.show();
     }
 
-
+    public void startNewGame() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_media_play)
+                .setTitle("New game?")
+                .setMessage("Do you want to start a new game?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        hangman.newGame();
+                        layoutUpdate();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
 }
