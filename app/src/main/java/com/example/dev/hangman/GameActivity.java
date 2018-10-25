@@ -12,14 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class GameActivity extends AppCompatActivity {
 
-    private Hangman hangman = new Hangman();
+    private String[] wordArray;
     private EditText inputField;
     private TextView guesses;
     private TextView guessesMade;
@@ -27,7 +31,16 @@ public class GameActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private List<Drawable> images= new ArrayList<>();
     private final int BILD = 9;
+    private Hangman hangman = new Hangman();
+    private final String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/";
+    private String theme = "Standard";
+    private String pic = "hang0";
+    private String hangmanPicturePath;
     // This is the game object
+
+
+
+
 
 
 
@@ -36,18 +49,23 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        /*
+
+        wordArray = getResources().getStringArray(R.array.wordList);
+        hangman = new Hangman(wordArray);
+*/
+
+        //load game
         hangman = hangman.loadGame();
+
         //test if activity is reactivated from on start
         if( savedInstanceState != null)
         {
             //Restart of activity after configuration change
-
-
         }
 
         //LoadPreferences();
-
-
 
         setContentView(R.layout.activity_game_activitty);
         inputField = findViewById(R.id.guessText);
@@ -58,10 +76,17 @@ public class GameActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
 
 
+        RequestCreator drawable = Picasso.get().load(hangmanPicturePath);
 
         //TODO add word list from web
+        loadResources();
+        layoutUpdate();
+
+    }
 
 
+
+    private void loadResources() {
         //Preload images TODO add to web
         images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
         images.add(getResources().getDrawable(R.drawable.hang1, getTheme()));
@@ -74,18 +99,7 @@ public class GameActivity extends AppCompatActivity {
         images.add(getResources().getDrawable(R.drawable.hang8, getTheme()));
         images.add(getResources().getDrawable(R.drawable.hang9, getTheme()));
 
-        //sets image
-        Drawable drawable = images.get(hangman.getGuessesLeft());
-        hangmanView.setImageDrawable(drawable);
 
-
-
-
-
-
-
-
-        layoutUpdate();
 
     }
 
@@ -169,6 +183,10 @@ public class GameActivity extends AppCompatActivity {
 
     private void layoutUpdate() {
 
+        /* TODO add theme
+        String pictureNumber = Integer.toString(hangman.getGuessesLeft());
+        hangmanPicturePath = PATH_TO_RESOURCES + theme +"/" +"hang" + pictureNumber;
+*/
         //update hangman pic
         if (hangman.getGuessesLeft() < 10 && BILD > 0) {
             hangmanView.setImageDrawable(images.get(hangman.getGuessesLeft()));

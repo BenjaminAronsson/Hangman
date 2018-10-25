@@ -1,11 +1,12 @@
 package com.example.dev.hangman;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Hangman {
     //fields
-    private ArrayList<String> words;
+    private String[] words;
     private int guessesLeft = 9;
     private static Random random = new Random();
     private ArrayList<String> guessedLetters = new ArrayList<>();
@@ -13,7 +14,10 @@ public class Hangman {
     private String word = "Hello";
     private static Hangman data = null;
 
-
+    public Hangman(String[] wordList) {
+        this.words = wordList;
+       newWord();
+    }
 
     public void setGuessedLetters(ArrayList<String> guessedLetters) {
         this.guessedLetters = guessedLetters;
@@ -36,18 +40,13 @@ public class Hangman {
     }
 
 
-    public Hangman(ArrayList<String> words) {
-        this.words = words;
-        newWord();
-    }
     public Hangman() {
-       ArrayList<String> words = new ArrayList<>();
-       words.add("Hej");
-       words.add("Panda");
-       words.add("Ferrari");
-        words.add("Klocka");
-        words.add("Blomma");
-       words.add("Hello");
+       String[] words = new String[5];
+       words[0] = "Hej";
+       words[1] = "PANDA";
+       words[2] = "Ferrari";
+       words[3] = "Blomma";
+       words[4] = "Klocka";
        this.words = words;
        newWord();
     }
@@ -177,8 +176,8 @@ public class Hangman {
 
     //randomizes a new word from the list
     public void newWord() {
-        int index = random.nextInt(words.size());
-        word = words.get(index).toLowerCase();
+        int index = random.nextInt(words.length);
+        word = words[index].toLowerCase();
 
         hiddenWord.clear();
         for (int i = 0; i < word.length(); i++) {

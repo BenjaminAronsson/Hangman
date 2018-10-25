@@ -1,0 +1,5 @@
+ String[] wordArray;
+        wordArray = getResources().getStringArray(R.array.wordList);
+        words = new ArrayList<>(Arrays.asList(wordArray));
+       this.words = words;
+
