@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="infoButton">Info</string>
+
+    <string-array name="wordList">
+        <item>stol</item>
+        <item>björn</item>
+        <item>Stege</item>
+        <item>Spelkonsol</item>
+        <item>Flygplan</item>
+    </string-array>
+    <string name="welcomeMessage">Välkommen</string>
+    <string name="guessText">Gissa</string>
+    <string name="guessButton">Gissa</string>
+</resources>

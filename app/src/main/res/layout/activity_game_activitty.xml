@@ -43,7 +43,7 @@
         android:background="@color/colorPrimary"
         android:fontFamily="@font/autour_one"
         android:onClick="guessButtonPressed"
-        android:text="Guess"
+        android:text="@string/guessButton"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/autour_one"
-        android:text="A"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,14 +70,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Guess"
+        android:hint="@string/guessText"
         android:inputType="textCapCharacters"
         app:layout_constraintEnd_toStartOf="@+id/guessButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guessButton"
         tools:text="Guess"
         android:theme="@style/MyEditTextStyle2"
-        />
+        android:importantForAutofill="no" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

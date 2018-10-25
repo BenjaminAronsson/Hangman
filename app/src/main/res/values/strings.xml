@@ -1,8 +1,21 @@
 <resources>
-    <string name="app_name">Hangman</string>
+    <string name="app_name" translatable="false">Hangman</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="action_favorite">favorite</string>
-    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="action_favorite" translatable="false">favorite</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="welcomeMessage">Welcome</string>
+    <string name="startButton" translatable="false">Start</string>
+    <string name="infoButton">Info</string>
+    <string name="guessText">Guess</string>
+    <string name="guessButton">Guess</string>
+
+    <string-array name="wordList">
+        <item>chair</item>
+        <item>bear</item>
+        <item>ladder</item>
+        <item>gameconsole</item>
+        <item>airplane</item>
+    </string-array>
 </resources>

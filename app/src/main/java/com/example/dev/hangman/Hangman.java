@@ -1,5 +1,7 @@
 package com.example.dev.hangman;
 
+import android.content.res.Resources;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -39,6 +41,19 @@ public class Hangman {
         return word;
     }
 
+    public Hangman(Resources r) {
+        String[] list = r.getStringArray(R.array.wordList);
+        if (list == null) {
+            String[] words = new String[2];
+            words[0] = "Hej";
+            words[1] = "PANDA";
+            this.words = words;
+        }
+        else {
+            this.words = list;
+        }
+        newWord();
+    }
 
     public Hangman() {
        String[] words = new String[5];

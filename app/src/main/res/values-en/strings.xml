@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="infoButton">Info</string>
+
+    <string-array name="wordList">
+        <item>chair</item>
+        <item>bear</item>
+        <item>ladder</item>
+        <item>gameconsole</item>
+        <item>airplane</item>
+    </string-array>
+    <string name="welcomeMessage">Welcome</string>
+    <string name="guessText">Guess</string>
+    <string name="guessButton">Guess</string>
+</resources>

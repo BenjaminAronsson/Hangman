@@ -44,9 +44,9 @@ public class StartActivity extends AppCompatActivity {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.container, fragmentObject);
-        ft.commit();
+        ft.commit();*/
 
-        //Intent i = new Intent(StartActivity.this, FragmentActivity.class);
-        //startActivity(i);*/
+        Intent i = new Intent(this, SettingsActivity.class);
+        startActivity(i);
     }
 }

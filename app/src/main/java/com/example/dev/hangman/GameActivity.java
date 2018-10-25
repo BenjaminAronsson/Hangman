@@ -50,14 +50,14 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        /*
 
-        wordArray = getResources().getStringArray(R.array.wordList);
-        hangman = new Hangman(wordArray);
-*/
+
+        //wordArray = getResources().getStringArray(R.array.wordList);
+        hangman = new Hangman(getResources());
+
 
         //load game
-        hangman = hangman.loadGame();
+        //hangman = hangman.loadGame();
 
         //test if activity is reactivated from on start
         if( savedInstanceState != null)
