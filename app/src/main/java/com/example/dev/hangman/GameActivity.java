@@ -1,6 +1,8 @@
 package com.example.dev.hangman;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
@@ -172,12 +174,16 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void gameWon() {
+        Intent i = new Intent(this, EndActivity.class);
+        startActivity(i);
         //TODO
         startNewGame();
     }
 
     private void gameLost() {
         //TODO
+        Intent i = new Intent(this, EndActivity.class);
+        startActivity(i);
         startNewGame();
     }
 
