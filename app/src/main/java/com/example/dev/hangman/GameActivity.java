@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends menu {
 
     private String[] wordArray;
     private EditText inputField;
@@ -33,8 +34,8 @@ public class GameActivity extends AppCompatActivity {
     private final int BILD = 9;
     private Hangman hangman = new Hangman();
     private final String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/";
-    private String theme = "Standard";
-    private String pic = "hang0";
+    private String theme = "standard";
+    private String pic = "hang0.gif";
     private String hangmanPicturePath;
     // This is the game object
 
@@ -85,6 +86,20 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected boolean isBackButton() {
+        return true;
+    }
+
+    @Override
+    protected boolean isAboutButton() {
+        return true;
+    }
+
+    @Override
+    protected boolean isPlayButton() {
+        return false;
+    }
 
 
     private void loadResources() {
@@ -239,21 +254,25 @@ public class GameActivity extends AppCompatActivity {
 
     private void toastNoInput() {
         Toast myToast = Toast.makeText(this, "You must enter a letter!", Toast.LENGTH_LONG);
+        myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     private void toastNoLetter() {
         Toast myToast = Toast.makeText(this, "You can only use letters!", Toast.LENGTH_LONG);
+        myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     private void toastWrongInput() {
         Toast myToast = Toast.makeText(this, "You can only guess on one letter at a time!", Toast.LENGTH_LONG);
+        myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     private void toastDuplicateGuess() {
         Toast myToast = Toast.makeText(this, "You can only guess on the same letter once!", Toast.LENGTH_LONG);
+        myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 

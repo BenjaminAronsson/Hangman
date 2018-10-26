@@ -1,10 +1,15 @@
 package com.example.dev.hangman;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,6 +30,10 @@ public class EndActivity extends AppCompatActivity {
         wordView = findViewById(R.id.textView3);
         endMessageView = findViewById(R.id.textView4);
 
+        ImageView im = findViewById(R.id.imageView);
+
+        Picasso.get().load("https://benjaminaronsson.github.io/Hangman/standard/hang0.gif").into(im);
+
         loadPreferences();
 
     }
@@ -42,15 +51,20 @@ public class EndActivity extends AppCompatActivity {
         String i = Integer.toString(guessesLeft);
         String j;
         if (isWin) {
-            j = "Congratulations you won";
+            j = getString(R.string.Congratulation);
         }
         else {
-            j = "Better luck next time";
+            //j = "Better luck next time";
+             j = getString(R.string.goodLuck);
         }
 
         guessesMadeView.setText("There was: " +i +" guesses left");
         wordView.setText("The word was: " +word);
         endMessageView.setText(j);
+
+    }
+
+    public void toMenuButtonPressed(View view) {
 
     }
 }

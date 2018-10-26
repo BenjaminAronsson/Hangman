@@ -12,4 +12,6 @@
     <string name="welcomeMessage">Välkommen</string>
     <string name="guessText">Gissa</string>
     <string name="guessButton">Gissa</string>
+    <string name="goodLuck">Bättre lycka nästa gång!</string>
+    <string name="Congratulation">Grattis</string>
 </resources>
