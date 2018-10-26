@@ -3,7 +3,6 @@ package com.example.dev.hangman;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Hangman {
@@ -170,7 +169,7 @@ public class Hangman {
     }
 
     // Checks to see if the user has used up all her guesses
-    public boolean hasLost() {
+    public boolean isLose() {
         return guessesLeft <= 0;
     }
 
@@ -185,7 +184,7 @@ public class Hangman {
     }
 
     //Checks to see if the user has guessed all letters correctly
-    public boolean hasWon() {
+    public boolean isWin() {
         return getHiddenWord().equals(word);
     }
 
@@ -201,7 +200,7 @@ public class Hangman {
     }
 
     public boolean isGameContinuing() {
-        return !(hasWon() || hasLost());
+        return !(isWin() || isLose());
 
     }
 

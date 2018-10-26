@@ -1,6 +1,5 @@
 package com.example.dev.hangman;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +17,6 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,6 +48,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game_activitty);
 
 
 
@@ -69,7 +68,7 @@ public class GameActivity extends AppCompatActivity {
 
         //LoadPreferences();
 
-        setContentView(R.layout.activity_game_activitty);
+
         inputField = findViewById(R.id.guessText);
         guesses = findViewById(R.id.hiddenWord);
         guessesMade = findViewById(R.id.guessedLetters);
@@ -113,7 +112,7 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    private void LoadPreferences() {
+    private void loadPreferences() {
 
 
 
@@ -132,18 +131,15 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    private void SavePreferences() {
+    private void savePreferences() {
         // MY_PREFS_NAME - a static String variable like:
         //public static final String MY_PREFS_NAME = "MyPrefsFile";
         SharedPreferences.Editor editor = getSharedPreferences("default", MODE_PRIVATE).edit();
-        editor.putString("Chosen word", hangman.getChoosenWord());
-        editor.putInt("Guesses left", hangman.getGuessesLeft());
-
-        //Set the values
-        Set<String> guessedLetters = new HashSet<String>();
-        guessedLetters.addAll(hangman.getGuessedLetters());
-        editor.putStringSet("Guesses made", guessedLetters);
+        editor.putString("chosen word", hangman.getChoosenWord());
+        editor.putInt("guesses left", hangman.getGuessesLeft());
+        editor.putBoolean("is win", hangman.isWin());
         editor.commit();
+
     }
 
     public void guessButtonPressed(View view) {
@@ -163,9 +159,9 @@ public class GameActivity extends AppCompatActivity {
             layoutUpdate();
 
             //test if player won or lost
-            if (hangman.hasWon()) {
+            if (hangman.isWin()) {
                 gameWon();
-            } else if (hangman.hasLost()) {
+            } else if (hangman.isLose()) {
                 gameLost();
                 guesses.setText(hangman.getChoosenWord());
             }
@@ -175,6 +171,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void gameWon() {
         Intent i = new Intent(this, EndActivity.class);
+        savePreferences();
         startActivity(i);
         //TODO
         startNewGame();
@@ -182,6 +179,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void gameLost() {
         //TODO
+        savePreferences();
         Intent i = new Intent(this, EndActivity.class);
         startActivity(i);
         startNewGame();
