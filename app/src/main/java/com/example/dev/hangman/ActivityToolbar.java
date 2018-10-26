@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public abstract class menu extends AppCompatActivity {
+public abstract class ActivityToolbar extends AppCompatActivity {
     
 
     @Override
@@ -20,7 +20,11 @@ public abstract class menu extends AppCompatActivity {
         //sets back button on toolbar
         getSupportActionBar().setDisplayShowHomeEnabled(isBackButton());
         getSupportActionBar().setDisplayHomeAsUpEnabled(isBackButton());
+
+
     }
+
+
 
 
     //Visibility
@@ -48,6 +52,7 @@ public abstract class menu extends AppCompatActivity {
             return true;
         }
 
+    //on menu click
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -56,6 +61,9 @@ public abstract class menu extends AppCompatActivity {
                 return true;
             case R.id.action_about:
                 aboutButtonClicked();
+                return true;
+            case R.id.home:
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

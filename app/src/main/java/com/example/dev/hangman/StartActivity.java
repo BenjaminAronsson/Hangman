@@ -1,6 +1,6 @@
 package com.example.dev.hangman;
 
-public class StartActivity extends menu {
+public class StartActivity extends ActivityToolbar {
 
     //toolbar visibility
 

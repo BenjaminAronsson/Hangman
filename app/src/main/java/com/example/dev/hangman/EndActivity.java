@@ -1,9 +1,8 @@
 package com.example.dev.hangman;
 
-import android.app.Activity;
-import android.content.Intent;
+
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,11 +10,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
-public class EndActivity extends AppCompatActivity {
+public class EndActivity extends ActivityToolbar {
 
     private TextView guessesMadeView;
     private TextView wordView;
@@ -36,6 +32,21 @@ public class EndActivity extends AppCompatActivity {
 
         loadPreferences();
 
+    }
+
+    @Override
+    protected boolean isBackButton() {
+        return true;
+    }
+
+    @Override
+    protected boolean isAboutButton() {
+        return false;
+    }
+
+    @Override
+    protected boolean isPlayButton() {
+        return false;
     }
 
     private void loadPreferences() {

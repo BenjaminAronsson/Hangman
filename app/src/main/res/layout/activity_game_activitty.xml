@@ -44,7 +44,7 @@
         android:fontFamily="@font/autour_one"
         android:onClick="guessButtonPressed"
         android:text="@string/guessButton"
-        android:textColor="@color/colorAccent"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
