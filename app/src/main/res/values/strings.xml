@@ -10,8 +10,8 @@
     <string name="infoButton">Info</string>
     <string name="guessText">Guess</string>
     <string name="guessButton">Guess</string>
-    <string name="goodLuck" >Better luck next time</string>
-    <string name="Congratulation" >Congratulation!</string>
+    <string name="goodLuck">Better luck next time</string>
+    <string name="Congratulation">Congratulation!</string>
 
     <string-array name="wordList">
         <item>chair</item>
