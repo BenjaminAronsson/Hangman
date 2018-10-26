@@ -33,7 +33,7 @@ public class EndActivity extends ActivityToolbar {
         loadPreferences();
 
     }
-
+/*
     @Override
     protected boolean isBackButton() {
         return true;
@@ -48,7 +48,7 @@ public class EndActivity extends ActivityToolbar {
     protected boolean isPlayButton() {
         return false;
     }
-
+*/
     private void loadPreferences() {
 
 

@@ -13,19 +13,19 @@ public class SettingsActivity extends ActivityToolbar {
         setContentView(R.layout.activity_settings);
 
         //creates fragment
-        AboutFragment exampleFragment= new AboutFragment();
+        Fragment exampleFragment= new AboutFragment();
 
         //byta, växla mellan fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         //förändra fragmentet
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.frameUp, exampleFragment);
+        fragmentTransaction.add(R.id.mainFrame, exampleFragment);
 
         //skickar komandot
         fragmentTransaction.commit();
 
-        /*******************************************************/
+        /*******************************************************
 
         //creates fragment
         MenuFragment menuFragment = new MenuFragment();
@@ -34,12 +34,12 @@ public class SettingsActivity extends ActivityToolbar {
         FragmentManager fragmentManager2 = getSupportFragmentManager();
 
         //förändra fragmentet
-        FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
 
-        fragmentTransaction2.add(R.id.frameDown, menuFragment);
-        fragmentTransaction2.commit();
+        fragmentTransaction2.add(R.id.mainFrame, menuFragment);
+        fragmentTransaction2.commit();*/
     }
-
+/*
     @Override
     protected boolean isBackButton() {
         return true;
@@ -54,4 +54,5 @@ public class SettingsActivity extends ActivityToolbar {
     protected boolean isPlayButton() {
         return false;
     }
+    */
 }

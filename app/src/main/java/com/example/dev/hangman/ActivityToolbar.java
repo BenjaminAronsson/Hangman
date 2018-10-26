@@ -18,8 +18,8 @@ public abstract class ActivityToolbar extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         //sets back button on toolbar
-        getSupportActionBar().setDisplayShowHomeEnabled(isBackButton());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(isBackButton());
+        getSupportActionBar().setDisplayShowHomeEnabled(/*isBackButton()*/true);//TODO change
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true/*isBackButton()*/);
 
 
     }
@@ -28,6 +28,7 @@ public abstract class ActivityToolbar extends AppCompatActivity {
 
 
     //Visibility
+    /*
     protected abstract boolean isBackButton();
 
     protected abstract boolean isAboutButton();
@@ -91,19 +92,11 @@ public abstract class ActivityToolbar extends AppCompatActivity {
     }
 
     public void InfoButtonClicked(View view) {
-    /*FragmentManager manager = getFragmentManager();
-    FragmentTransaction transaction = manager.beginTransaction();
-    transaction.add(R.id.container, GameFragment.class , "game" );
-    transaction.addToBackStack(null);
-    transaction.commit();
 
-    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-    ft.replace(R.id.container, fragmentObject);
-    ft.commit();*/
 
         Intent i = new Intent(this, SettingsActivity.class);
         startActivity(i);
-    }
+    }*/
 
         
     }

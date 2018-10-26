@@ -85,7 +85,7 @@ public class GameActivity extends ActivityToolbar {
 
     }
 
-    @Override
+    /*@Override
     protected boolean isBackButton() {
         return true;
     }
@@ -100,7 +100,7 @@ public class GameActivity extends ActivityToolbar {
         return false;
     }
 
-
+*/
     private void loadResources() {
         //Preload images TODO add to web
         images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
