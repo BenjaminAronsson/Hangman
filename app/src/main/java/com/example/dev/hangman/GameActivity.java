@@ -156,7 +156,7 @@ public class GameActivity extends ActivityToolbar {
 
     }
 
-    public void guessButtonPressed(View view) {
+    /*public void guessButtonPressed(View view) {
 
         if(hangman.isGameContinuing()) {
 
@@ -181,7 +181,7 @@ public class GameActivity extends ActivityToolbar {
             }
         }
         inputField.setText("");
-    }
+    }*/
 
     private void gameWon() {
         Intent i = new Intent(this, EndActivity.class);

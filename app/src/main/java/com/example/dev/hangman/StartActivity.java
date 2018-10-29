@@ -50,7 +50,6 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-
     protected boolean isBackButton() {
         return false;
     }
@@ -99,8 +98,6 @@ public class StartActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 
     private void gameButtonClicked() {
         Intent intent = new Intent(this, GameActivity.class);

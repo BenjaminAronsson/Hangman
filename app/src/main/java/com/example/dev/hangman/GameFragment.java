@@ -2,10 +2,10 @@ package com.example.dev.hangman;
 
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
@@ -28,18 +28,12 @@ import java.util.Set;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class GameFragment extends Fragment {
+public class GameFragment extends Fragment{
 
     public GameFragment() {
         // Required empty public constructor
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game, container, false);
-    }
 
     private String[] wordArray;
     private EditText inputField;
@@ -57,19 +51,16 @@ public class GameFragment extends Fragment {
     // This is the game object
 
 
-
-
-
-
-
-/*
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_activitty);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_game, container, false);
+    }
 
-
-
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         //wordArray = getResources().getStringArray(R.array.wordList);
         hangman = new Hangman(getResources());
@@ -92,14 +83,18 @@ public class GameFragment extends Fragment {
         guessesMade = getView().findViewById(R.id.guessedLetters);
         hangmanView = getView().findViewById(R.id.hangmanView);
         hangmanView.setTag(BILD);
-        sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
+        //sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
 
 
         RequestCreator drawable = Picasso.get().load(hangmanPicturePath);
 
         //TODO add word list from web
-        loadResources();
+        //loadResources();
         layoutUpdate();
+
+        getActivity().findViewById(R.id.guessButton).setOnClickListener(
+                //points to method buttonClicked
+                this::guessButtonPressed);
 
     }
 
@@ -118,7 +113,7 @@ public class GameFragment extends Fragment {
         return false;
     }
 
-*//*
+
     private void loadResources() {
         //Preload images TODO add to web
         images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
@@ -133,7 +128,7 @@ public class GameFragment extends Fragment {
         images.add(getResources().getDrawable(R.drawable.hang9, getTheme()));
 
     }
-
+*/
     @Override
     public void onPause() {
         super.onPause();
@@ -147,7 +142,7 @@ public class GameFragment extends Fragment {
 
 
         //save data
-        SharedPreferences prefs = getSharedPreferences("default", MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences("default", MODE_PRIVATE);
         String word = prefs.getString("chosen word", "Hello");//"No name defined" is the default value.
         int guessesLeft = prefs.getInt("Guesses left", 0); //0 is the default value.
         Set<String> temp = prefs.getStringSet("guesses made",  new HashSet<String>());//TODO null
@@ -164,13 +159,14 @@ public class GameFragment extends Fragment {
     private void savePreferences() {
         // MY_PREFS_NAME - a static String variable like:
         //public static final String MY_PREFS_NAME = "MyPrefsFile";
-        SharedPreferences.Editor editor = getSharedPreferences("default", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("default", MODE_PRIVATE).edit();
         editor.putString("chosen word", hangman.getChoosenWord());
         editor.putInt("guesses left", hangman.getGuessesLeft());
         editor.putBoolean("is win", hangman.isWin());
         editor.commit();
 
     }
+
 
     public void guessButtonPressed(View view) {
 
@@ -215,20 +211,21 @@ public class GameFragment extends Fragment {
 
     private void layoutUpdate() {
 
-        /* TODO add theme
+        //TODO add theme
         String pictureNumber = Integer.toString(hangman.getGuessesLeft());
         hangmanPicturePath = PATH_TO_RESOURCES + theme +"/" +"hang" + pictureNumber;
-*//*
-        //update hangman pic
+
+        /*update hangman pic
         if (hangman.getGuessesLeft() < 10 && BILD > 0) {
             hangmanView.setImageDrawable(images.get(hangman.getGuessesLeft()));
             hangmanView.setTag(hangman.getGuessesLeft());
-        }
+        }*/
 
         //updates text field
         guesses.setText(hangman.getHiddenWord());
         guessesMade.setText(hangman.getBadLettersUsed());
         inputField.setText("");
+
     }
 
     private String getInput(EditText inputField) {
@@ -266,31 +263,31 @@ public class GameFragment extends Fragment {
     }
 
     private void toastNoInput() {
-        Toast myToast = Toast.makeText(, "You must enter a letter!", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(getActivity(), "You must enter a letter!", Toast.LENGTH_LONG);
         myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     private void toastNoLetter() {
-        Toast myToast = Toast.makeText(this, "You can only use letters!", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(getActivity(), "You can only use letters!", Toast.LENGTH_LONG);
         myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     private void toastWrongInput() {
-        Toast myToast = Toast.makeText(this, "You can only guess on one letter at a time!", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(getActivity(), "You can only guess on one letter at a time!", Toast.LENGTH_LONG);
         myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     private void toastDuplicateGuess() {
-        Toast myToast = Toast.makeText(this, "You can only guess on the same letter once!", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(getActivity(), "You can only guess on the same letter once!", Toast.LENGTH_LONG);
         myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     public void startNewGame() {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(getContext())
                 .setIcon(android.R.drawable.ic_media_play)
                 .setTitle("New game?")
                 .setMessage("Do you want to start a new game?")
@@ -305,5 +302,5 @@ public class GameFragment extends Fragment {
                 .setNegativeButton("No", null)
                 .show();
     }
-*/
+
 }
