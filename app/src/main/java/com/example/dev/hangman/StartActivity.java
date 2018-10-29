@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,10 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        //sets toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //sets back button on toolbar
         getSupportActionBar().setDisplayShowHomeEnabled(isBackButton());
@@ -67,7 +72,7 @@ public class StartActivity extends AppCompatActivity {
     //create toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //get menu
+        //tolkar xml filen
         getMenuInflater().inflate(R.menu.menu_start, menu);
 
         //displays play item
@@ -87,9 +92,10 @@ public class StartActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_play:
                 //TODO add action
+                playButtonClicked();
                 return true;
             case R.id.action_about:
-                gameButtonClicked();
+                InfoButtonClicked();
                 return true;
             case R.id.home:
                 finish();
@@ -99,33 +105,32 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-    private void gameButtonClicked() {
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
-    }
 
 
 
 
     //buttons
-    public void playButtonClicked(View view) {
+    public void playButtonClicked() {
 
 
          fragmentManager = getSupportFragmentManager();
         //förändra fragmentet
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.mainFrame, gameFragment);
+        fragmentTransaction.addToBackStack(null);
         //skickar komandot
+
         fragmentTransaction.commit();
 
     }
 
-    public void InfoButtonClicked(View view) {
+    public void InfoButtonClicked() {
 
         fragmentManager = getSupportFragmentManager();
         //förändra fragmentet
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.mainFrame, aboutFragment);
+        fragmentTransaction.addToBackStack(null);
         //skickar komandot
         fragmentTransaction.commit();
     }
