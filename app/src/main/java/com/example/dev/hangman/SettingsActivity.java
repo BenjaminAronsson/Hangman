@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
 
 public class SettingsActivity extends ActivityToolbar {
 
@@ -11,6 +12,7 @@ public class SettingsActivity extends ActivityToolbar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
 
         //creates fragment
         Fragment exampleFragment= new AboutFragment();
@@ -24,35 +26,7 @@ public class SettingsActivity extends ActivityToolbar {
 
         //skickar komandot
         fragmentTransaction.commit();
-
-        /*******************************************************
-
-        //creates fragment
-        MenuFragment menuFragment = new MenuFragment();
-
-        //byta, växla mellan fragments
-        FragmentManager fragmentManager2 = getSupportFragmentManager();
-
-        //förändra fragmentet
-        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-
-        fragmentTransaction2.add(R.id.mainFrame, menuFragment);
-        fragmentTransaction2.commit();*/
-    }
-/*
-    @Override
-    protected boolean isBackButton() {
-        return true;
     }
 
-    @Override
-    protected boolean isAboutButton() {
-        return false;
-    }
 
-    @Override
-    protected boolean isPlayButton() {
-        return false;
-    }
-    */
 }

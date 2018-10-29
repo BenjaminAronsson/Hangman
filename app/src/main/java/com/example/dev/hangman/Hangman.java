@@ -1,6 +1,7 @@
 package com.example.dev.hangman;
 
 import android.content.res.Resources;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -44,8 +45,8 @@ public class Hangman {
         String[] list = r.getStringArray(R.array.wordList);
         if (list == null) {
             String[] words = new String[2];
-            words[0] = "Hej";
-            words[1] = "PANDA";
+            words[0] = "error";
+            words[1] = "Error";
             this.words = words;
         }
         else {
@@ -56,11 +57,11 @@ public class Hangman {
 
     public Hangman() {
        String[] words = new String[5];
-       words[0] = "Hej";
-       words[1] = "PANDA";
-       words[2] = "Ferrari";
-       words[3] = "Blomma";
-       words[4] = "Klocka";
+       words[0] = "Panda";
+       words[1] = "default";
+       words[2] = "default";
+       words[3] = "default";
+       words[4] = "default";
        this.words = words;
        newWord();
     }
@@ -91,16 +92,20 @@ public class Hangman {
     public String getHiddenWord() {
         StringBuilder sb = new StringBuilder();
         String letter;
-        for (int i = 0; i < word.length(); i++) {
-            if (hiddenWord.get(i) == null || !hiddenWord.get(i) ) {
-                sb.append("-");
+        try {
+            for (int i = 0; i < word.length(); i++) {
+                if (hiddenWord.get(i) == null || !hiddenWord.get(i)) {
+                    sb.append("-");
+                } else {
+                    letter = word.substring(i, i + 1);
+                    sb.append(letter);
+                }
             }
-            else {
-                letter = word.substring(i, i+1);
-                sb.append(letter);
-            }
+            return sb.toString();
+        }catch (ArrayIndexOutOfBoundsException e) {
+            Log.i("Error", "called  index out of bound ");
+            return sb.toString();
         }
-        return sb.toString();
     }
 
     public void guess(String guess) {
@@ -210,10 +215,13 @@ public class Hangman {
         guessedLetters = new ArrayList<>(); //TODO clear old list
     }
 
-    public Hangman loadGame() {
-
+    public Hangman loadGame(Resources r) {
             if (data == null){
-                data = new Hangman();
+                String[] list = r.getStringArray(R.array.wordList);
+                if (list == null) {
+                    return new Hangman();
+                }
+                return new Hangman(r);
             }
             return data;
 

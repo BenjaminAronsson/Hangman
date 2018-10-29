@@ -67,7 +67,7 @@ public class GameFragment extends Fragment{
 
 
         //load game
-        hangman = hangman.loadGame();
+        hangman = hangman.loadGame(getResources());
 
         //test if activity is reactivated from on start
         if( savedInstanceState != null)
@@ -249,25 +249,25 @@ public class GameFragment extends Fragment{
     }
 
     private void toastNoInput() {
-        Toast myToast = Toast.makeText(getActivity(), "You must enter a letter!", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(getActivity(), R.string.toast1, Toast.LENGTH_LONG);
         myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     private void toastNoLetter() {
-        Toast myToast = Toast.makeText(getActivity(), "You can only use letters!", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(getActivity(), R.string.toast2, Toast.LENGTH_LONG);
         myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     private void toastWrongInput() {
-        Toast myToast = Toast.makeText(getActivity(), "You can only guess on one letter at a time!", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(getActivity(),  R.string.toast3, Toast.LENGTH_LONG);
         myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
 
     private void toastDuplicateGuess() {
-        Toast myToast = Toast.makeText(getActivity(), "You can only guess on the same letter once!", Toast.LENGTH_LONG);
+        Toast myToast = Toast.makeText(getActivity(),  R.string.toast4, Toast.LENGTH_LONG);
         myToast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 600);
         myToast.show();
     }
@@ -275,9 +275,9 @@ public class GameFragment extends Fragment{
     public void startNewGame() {
         new AlertDialog.Builder(getContext())
                 .setIcon(android.R.drawable.ic_media_play)
-                .setTitle("New game?")
-                .setMessage("Do you want to start a new game?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                .setTitle(R.string.new_game)
+                .setMessage(R.string.new_game2)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -285,7 +285,7 @@ public class GameFragment extends Fragment{
                         layoutUpdate();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.no, null)
                 .show();
     }
 

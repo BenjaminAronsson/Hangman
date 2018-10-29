@@ -12,6 +12,23 @@
     <string name="guessButton">Guess</string>
     <string name="goodLuck">Better luck next time</string>
     <string name="Congratulation">Congratulation!</string>
+    <string name="aboutMenuButton">about</string>
+    <string name="playMenuPressed">Play</string>
+    <string name="aboutMessage">Hangman v1.0</string>
+    <string name="hangmanFrame">hangman</string>
+    <string name="change_theme_button">Change theme</string>
+    <string name="toMenyButton">to Menu</string>
+    <string name="guesses_left1">There was: </string>
+    <string name="guesses_left2"> guesses left</string>
+    <string name="word_was">The word was: </string>
+    <string name="toast1">You must enter a letter!</string>
+    <string name="toast2">You can only use letters!</string>
+    <string name="toast3">You can only guess on one letter at a time!</string>
+    <string name="toast4">You can only guess on the same letter once!</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+    <string name="new_game">New game?</string>
+    <string name="new_game2">Do you want to start a new game?</string>
 
     <string-array name="wordList">
         <item>chair</item>
@@ -19,5 +36,6 @@
         <item>ladder</item>
         <item>gameconsole</item>
         <item>airplane</item>
+        <item>panda</item>
     </string-array>
 </resources>

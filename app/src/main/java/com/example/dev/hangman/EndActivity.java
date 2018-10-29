@@ -22,9 +22,9 @@ public class EndActivity extends ActivityToolbar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
 
-        guessesMadeView = findViewById(R.id.textView);
-        wordView = findViewById(R.id.textView3);
-        endMessageView = findViewById(R.id.textView4);
+        guessesMadeView = findViewById(R.id.gameOverMessage);
+        wordView = findViewById(R.id.chosenWordTextView);
+        endMessageView = findViewById(R.id.guessesMadeTextView);
 
         ImageView im = findViewById(R.id.imageView);
 
@@ -33,22 +33,7 @@ public class EndActivity extends ActivityToolbar {
         loadPreferences();
 
     }
-/*
-    @Override
-    protected boolean isBackButton() {
-        return true;
-    }
 
-    @Override
-    protected boolean isAboutButton() {
-        return false;
-    }
-
-    @Override
-    protected boolean isPlayButton() {
-        return false;
-    }
-*/
     private void loadPreferences() {
 
 

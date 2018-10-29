@@ -3,6 +3,7 @@ package com.example.dev.hangman;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 
 
 public class MenuFragment extends Fragment {
+
+    private FragmentTransaction transaction;
 
 
     public MenuFragment() {
@@ -29,6 +32,7 @@ public class MenuFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         getActivity().findViewById(R.id.playButton).setOnClickListener(
                 //points to method buttonClicked
                 this::playButtonClicked);
@@ -41,32 +45,39 @@ public class MenuFragment extends Fragment {
 
     private void playButtonClicked(View view) {
         // Create new fragment and transaction
-        Fragment newFragment = new GameFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack if needed
-        transaction.replace(R.id.mainFrame, newFragment);
+        Fragment gameFragment = StartActivity.gameFragment;
+
+        transaction = getFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack if needed
+        transaction.replace(R.id.mainFrame, gameFragment);
         transaction.addToBackStack(null);
 
-// Commit the transaction
+        // Commit the transaction
         transaction.commit();
     }
 
     private void aboutButtonClicked(View view) {
         // Create new fragment and transaction
-        Fragment aboutFragment = new AboutFragment();
-        FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
+        Fragment aboutFragment = StartActivity.aboutFragment;
+        transaction = getFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack if needed
-        transaction2.replace(R.id.mainFrame, aboutFragment);
-        transaction2.addToBackStack(null);
+        transaction.replace(R.id.mainFrame, aboutFragment);
+        transaction.addToBackStack(null);
 
         // Commit the transaction
-        transaction2.commit();
+        transaction.commit();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 }
 
 

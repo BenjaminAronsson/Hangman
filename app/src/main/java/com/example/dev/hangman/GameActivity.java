@@ -85,22 +85,7 @@ public class GameActivity extends ActivityToolbar {
 
     }
 
-    /*@Override
-    protected boolean isBackButton() {
-        return true;
-    }
 
-    @Override
-    protected boolean isAboutButton() {
-        return true;
-    }
-
-    @Override
-    protected boolean isPlayButton() {
-        return false;
-    }
-
-*/
     private void loadResources() {
         //Preload images TODO add to web
         images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
@@ -181,8 +166,8 @@ public class GameActivity extends ActivityToolbar {
             }
         }
         inputField.setText("");
-    }*/
-
+    }
+*/
     private void gameWon() {
         Intent i = new Intent(this, EndActivity.class);
         savePreferences();

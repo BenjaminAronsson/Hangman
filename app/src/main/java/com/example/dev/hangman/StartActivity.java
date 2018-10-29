@@ -14,12 +14,18 @@ import android.view.View;
 
 public class StartActivity extends AppCompatActivity {
 
-    private Fragment gameFragment;
-    private Fragment menuFragment;
-    private Fragment aboutFragment;
+    public static final Fragment gameFragment = new GameFragment();
+    public static final Fragment gameOverFragment = new GameOverFragment();
+    public static final Fragment aboutFragment = new AboutFragment();
+    public static final Fragment menuFragment = new MenuFragment();
+
     //byta, växla mellan fragments
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private boolean isBackButton = false;
+    private boolean isPlayButton = true;
+    private boolean isAboutButton = true;
+    private boolean isNewWord = true;
 
     //toolbar visibility
 
@@ -33,15 +39,8 @@ public class StartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //sets back button on toolbar
-        getSupportActionBar().setDisplayShowHomeEnabled(isBackButton());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(isBackButton());
-
-        //creates menu fragment
-        menuFragment = new MenuFragment();
-        //creates game fragment
-        gameFragment = new GameFragment();
-        //creates menu fragment
-        aboutFragment = new AboutFragment();
+        getSupportActionBar().setDisplayShowHomeEnabled(isBackButton);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(isBackButton);
 
         //byta, växla mellan fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -55,9 +54,6 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-    protected boolean isBackButton() {
-        return false;
-    }
 
 
     protected boolean isPlayButton() {
@@ -72,16 +68,22 @@ public class StartActivity extends AppCompatActivity {
     //create toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+
         //tolkar xml filen
         getMenuInflater().inflate(R.menu.menu_start, menu);
 
         //displays play item
         MenuItem playItem = menu.findItem(R.id.action_play);
-        playItem.setVisible(isPlayButton());
+        playItem.setVisible(isPlayButton);
 
         //displays about item
         MenuItem aboutItem = menu.findItem(R.id.action_about);
-        aboutItem.setVisible(isAboutButton());
+        aboutItem.setVisible(isAboutButton);
+
+        //displays new word item
+        MenuItem newWordItem = menu.findItem(R.id.action_new_word);
+        newWordItem.setVisible(isNewWord);
 
         return true;
     }
@@ -97,6 +99,9 @@ public class StartActivity extends AppCompatActivity {
             case R.id.action_about:
                 InfoButtonClicked();
                 return true;
+            case R.id.action_new_word:
+                newGame();
+                return true;
             case R.id.home:
                 finish();
                 return true;
@@ -105,8 +110,8 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-
-
+    private void newGame() {
+    }
 
 
     //buttons
@@ -135,4 +140,11 @@ public class StartActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0 )
+            getSupportFragmentManager().popBackStack();
+        else
+            finish();
+    }
 }

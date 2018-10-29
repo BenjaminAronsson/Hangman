@@ -8,10 +8,28 @@
         <item>Stege</item>
         <item>Spelkonsol</item>
         <item>Flygplan</item>
+        <item>panda</item>
     </string-array>
     <string name="welcomeMessage">Välkommen</string>
     <string name="guessText">Gissa</string>
     <string name="guessButton">Gissa</string>
     <string name="goodLuck">Bättre lycka nästa gång!</string>
     <string name="Congratulation">Grattis</string>
+    <string name="aboutMenuButton">about</string>
+    <string name="playMenuPressed">Play</string>
+    <string name="aboutMessage">Hangman v1.0</string>
+    <string name="change_theme_button">Change theme</string>
+    <string name="toMenyButton">to Menu</string>
+    <string name="hangmanFrame">hängagubbe</string>
+    <string name="guesses_left1">"Det var: "</string>
+    <string name="guesses_left2">" gissningar kvar"</string>
+    <string name="word_was">"Ordet var: "</string>
+    <string name="toast1">Du måsta mata ine en bokstav</string>
+    <string name="toast2">Du kan bara mata in bokstäver</string>
+    <string name="toast3">Du kan ändast mata in en bokstav i taget</string>
+    <string name="toast4">Du får bara använda samma bokstav en gång</string>
+    <string name="no">nej</string>
+    <string name="yes">Ja</string>
+    <string name="new_game">Nytt spel?</string>
+    <string name="new_game2">Vill du spela ett nytt spel?</string>
 </resources>
