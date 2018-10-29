@@ -67,7 +67,7 @@ public class GameFragment extends Fragment{
 
 
         //load game
-        //hangman = hangman.loadGame();
+        hangman = hangman.loadGame();
 
         //test if activity is reactivated from on start
         if( savedInstanceState != null)
@@ -75,7 +75,7 @@ public class GameFragment extends Fragment{
             //Restart of activity after configuration change
         }
 
-        //LoadPreferences();
+        //loadPreferences();
 
 
         inputField = getView().findViewById(R.id.guessText);
@@ -98,22 +98,8 @@ public class GameFragment extends Fragment{
 
     }
 
-    /*@Override
-    protected boolean isBackButton() {
-        return true;
-    }
 
-    @Override
-    protected boolean isAboutButton() {
-        return true;
-    }
-
-    @Override
-    protected boolean isPlayButton() {
-        return false;
-    }
-
-
+/*
     private void loadResources() {
         //Preload images TODO add to web
         images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
