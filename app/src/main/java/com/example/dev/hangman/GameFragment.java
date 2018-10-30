@@ -50,9 +50,9 @@ public class GameFragment extends Fragment{
     private final String theme = "standard";
     private String pic = "hang0.gif";
     private String hangmanPicturePath;
+    private final int HANGMAN_PLACEHOLDER = R.drawable.hang9;
+                                                   
     // This is the game object
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,9 +64,7 @@ public class GameFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //wordArray = getResources().getStringArray(R.array.wordList);
         hangman = new Hangman(getResources());
-
 
         //load game
         hangman = hangman.loadGame(getResources());
@@ -79,32 +77,39 @@ public class GameFragment extends Fragment{
 
         //loadPreferences();
 
-
-        inputField = Objects.requireNonNull(getView()).findViewById(R.id.guessText);
-        guesses = getView().findViewById(R.id.hiddenWord);
-        guessesMade = getView().findViewById(R.id.guessedLetters);
-        hangmanView = getView().findViewById(R.id.hangmanView);
-        hangmanView.setTag(BILD);
-        //sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
-
-
-        RequestCreator drawable = Picasso.get().load(hangmanPicturePath);
+        //sets object references
+        InitalizeViewObjects();
 
         //TODO add word list from web
-        //loadResources();
+
+        //loads images
+        loadResources();
+
+        //draws layout
         layoutUpdate();
 
+        //set onclick listener for guess button
         Objects.requireNonNull(getActivity()).findViewById(R.id.guessButton).setOnClickListener(
                 //points to method buttonClicked
                 view -> guessButtonPressed());
 
     }
 
+    private void InitalizeViewObjects() {
 
-/*
+        inputField = Objects.requireNonNull(getView()).findViewById(R.id.guessText);
+        guesses = getView().findViewById(R.id.hiddenWord);
+        guessesMade = getView().findViewById(R.id.guessedLetters);
+        hangmanView = getActivity().findViewById(R.id.hangmanView);
+        hangmanView.setTag(BILD);
+
+        //sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
+    }
+
+
     private void loadResources() {
         //Preload images TODO add to web
-        images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
+        /*images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
         images.add(getResources().getDrawable(R.drawable.hang1, getTheme()));
         images.add(getResources().getDrawable(R.drawable.hang2, getTheme()));
         images.add(getResources().getDrawable(R.drawable.hang3, getTheme()));
@@ -114,9 +119,15 @@ public class GameFragment extends Fragment{
         images.add(getResources().getDrawable(R.drawable.hang7, getTheme()));
         images.add(getResources().getDrawable(R.drawable.hang8, getTheme()));
         images.add(getResources().getDrawable(R.drawable.hang9, getTheme()));
-
-    }
 */
+
+
+
+
+        String url = "https://benjaminaronsson.github.io/Hangman/theme/standard/hang0.gif";
+        Picasso.get().load(url).placeholder(HANGMAN_PLACEHOLDER).into(hangmanView);
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -179,8 +190,6 @@ public class GameFragment extends Fragment{
         }
         inputField.setText("");
     }
-
-
 
     private void gameOver() {
         //TODO change fragment to end

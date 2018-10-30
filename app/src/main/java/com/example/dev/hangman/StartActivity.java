@@ -105,6 +105,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void newGame() {
+        //Hangman.newGame() todo
     }
 
 
