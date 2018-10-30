@@ -46,7 +46,7 @@ public class GameFragment extends Fragment{
     private final int BILD = 9;
     private Hangman hangman = new Hangman();
     private final String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/theme/";
-    private final String theme = "standard/";
+    private final String theme = "halloween/";
     private String pic = "hang0.gif";
     private String hangmanPicturePath = PATH_TO_RESOURCES +theme;
     private final int HANGMAN_PLACEHOLDER = R.drawable.hang9;
