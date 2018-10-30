@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,10 +45,10 @@ public class GameFragment extends Fragment{
     private List<Drawable> images= new ArrayList<>();
     private final int BILD = 9;
     private Hangman hangman = new Hangman();
-    private final String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/";
-    private final String theme = "standard";
+    private final String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/theme/";
+    private final String theme = "standard/";
     private String pic = "hang0.gif";
-    private String hangmanPicturePath;
+    private String hangmanPicturePath = PATH_TO_RESOURCES +theme;
     private final int HANGMAN_PLACEHOLDER = R.drawable.hang9;
                                                    
     // This is the game object
@@ -64,10 +63,11 @@ public class GameFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        hangman = new Hangman(getResources());
+         //sets object references
+         InitializeViewObjects();
 
-        //load game
-        hangman = hangman.loadGame(getResources());
+        //Preload images
+        Picasso.get().load(hangmanPicturePath).placeholder(HANGMAN_PLACEHOLDER).into(hangmanView);
 
         //test if activity is reactivated from on start
         if( savedInstanceState != null)
@@ -75,15 +75,13 @@ public class GameFragment extends Fragment{
             //Restart of activity after configuration change
         }
 
+        //create game    //TODO add word list from web                           
+        hangman = new Hangman(getResources());
+
+        //load game
+        hangman = hangman.loadGame(getResources());
+
         //loadPreferences();
-
-        //sets object references
-        InitalizeViewObjects();
-
-        //TODO add word list from web
-
-        //loads images
-        loadResources();
 
         //draws layout
         layoutUpdate();
@@ -95,7 +93,7 @@ public class GameFragment extends Fragment{
 
     }
 
-    private void InitalizeViewObjects() {
+    private void InitializeViewObjects() {
 
         inputField = Objects.requireNonNull(getView()).findViewById(R.id.guessText);
         guesses = getView().findViewById(R.id.hiddenWord);
@@ -107,25 +105,19 @@ public class GameFragment extends Fragment{
     }
 
 
-    private void loadResources() {
-        //Preload images TODO add to web
-        /*images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang1, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang2, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang3, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang4, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang5, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang6, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang7, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang8, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang9, getTheme()));
-*/
+    private void loadHangmanImages() {
 
+         //TODO add theme
+         //load images number
+         String imagesNumber = "hang"+ Integer.toString(hangman.getGuessesLeft()) +".gif";
 
+         //load path
+         String url =  hangmanPicturePath +imagesNumber;
+         //update hangman pic
+         if (hangman.getGuessesLeft() < 10 && hangman.getGuessesLeft() >= 0) {
 
-
-        String url = "https://benjaminaronsson.github.io/Hangman/theme/standard/hang0.gif";
-        Picasso.get().load(url).placeholder(HANGMAN_PLACEHOLDER).into(hangmanView);
+            Picasso.get().load(url).placeholder(hangmanView.getDrawable()).into(hangmanView);
+         }
     }
 
     @Override
@@ -211,15 +203,8 @@ public class GameFragment extends Fragment{
 
     private void layoutUpdate() {
 
-        //TODO add theme
-        String pictureNumber = Integer.toString(hangman.getGuessesLeft());
-        hangmanPicturePath = PATH_TO_RESOURCES + theme +"/" +"hang" + pictureNumber;
-
-        /*update hangman pic
-        if (hangman.getGuessesLeft() < 10 && BILD > 0) {
-            hangmanView.setImageDrawable(images.get(hangman.getGuessesLeft()));
-            hangmanView.setTag(hangman.getGuessesLeft());
-        }*/
+        //loads images
+        loadHangmanImages();
 
         //updates text field
         guesses.setText(hangman.getHiddenWord());
