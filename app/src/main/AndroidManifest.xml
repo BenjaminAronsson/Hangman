@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:fullBackupContent="@xml/backup_descriptor">
 
         <activity android:name=".StartActivity"
             android:screenOrientation="portrait"
@@ -34,8 +35,9 @@
         <activity android:name=".SettingsActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".EndActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".EndActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

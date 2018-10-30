@@ -1,12 +1,10 @@
 package com.example.dev.hangman;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+
+import java.util.Objects;
 
 
 public abstract class ActivityToolbar extends AppCompatActivity {
@@ -18,7 +16,7 @@ public abstract class ActivityToolbar extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         //sets back button on toolbar
-        getSupportActionBar().setDisplayShowHomeEnabled(/*isBackButton()*/true);//TODO change
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(/*isBackButton()*/true);//TODO change
         getSupportActionBar().setDisplayHomeAsUpEnabled(true/*isBackButton()*/);
 
 

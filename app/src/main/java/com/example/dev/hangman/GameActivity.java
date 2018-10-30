@@ -1,13 +1,11 @@
 package com.example.dev.hangman;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,7 +27,7 @@ public class GameActivity extends ActivityToolbar {
     private TextView guessesMade;
     private ImageView hangmanView;
     private SharedPreferences sharedPreferences;
-    private List<Drawable> images= new ArrayList<>();
+    private final List<Drawable> images= new ArrayList<>();
     private final int BILD = 9;
     private Hangman hangman = new Hangman();
     private final String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/";
@@ -119,10 +117,10 @@ public class GameActivity extends ActivityToolbar {
         SharedPreferences prefs = getSharedPreferences("default", MODE_PRIVATE);
         String word = prefs.getString("chosen word", "Hello");//"No name defined" is the default value.
         int guessesLeft = prefs.getInt("Guesses left", 0); //0 is the default value.
-        Set<String> temp = prefs.getStringSet("guesses made",  new HashSet<String>());//TODO null
+        Set<String> temp = prefs.getStringSet("guesses made", new HashSet<>());//TODO null
 
         //Set<String> userAllSet = temp;
-        ArrayList<String> guessedLetter = new ArrayList<String>(temp);
+        ArrayList<String> guessedLetter = new ArrayList<>(temp);
 
             hangman.setGuessesLeft(guessesLeft);
             hangman.setWord(word);
@@ -191,7 +189,7 @@ public class GameActivity extends ActivityToolbar {
         hangmanPicturePath = PATH_TO_RESOURCES + theme +"/" +"hang" + pictureNumber;
 */
         //update hangman pic
-        if (hangman.getGuessesLeft() < 10 && BILD > 0) {
+        if (hangman.getGuessesLeft() < 10) {
             hangmanView.setImageDrawable(images.get(hangman.getGuessesLeft()));
             hangmanView.setTag(hangman.getGuessesLeft());
         }
@@ -205,8 +203,7 @@ public class GameActivity extends ActivityToolbar {
     private String getInput(EditText inputField) {
         //takes guess from input
 
-     String input = inputField.getText().toString();
-    return input;
+        return inputField.getText().toString();
 
     }
 
@@ -260,18 +257,14 @@ public class GameActivity extends ActivityToolbar {
         myToast.show();
     }
 
-    public void startNewGame() {
+    private void startNewGame() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_media_play)
                 .setTitle("New game?")
                 .setMessage("Do you want to start a new game?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        hangman.newGame();
-                        layoutUpdate();
-                    }
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    hangman.newGame();
+                    layoutUpdate();
                 })
                 .setNegativeButton("No", null)
                 .show();

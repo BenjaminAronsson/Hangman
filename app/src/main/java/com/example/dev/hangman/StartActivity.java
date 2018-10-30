@@ -1,6 +1,5 @@
 package com.example.dev.hangman;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
+import java.util.Objects;
+
+@SuppressWarnings("CanBeFinal")
 public class StartActivity extends AppCompatActivity {
 
     public static final Fragment gameFragment = new GameFragment();
@@ -39,7 +40,7 @@ public class StartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //sets back button on toolbar
-        getSupportActionBar().setDisplayShowHomeEnabled(isBackButton);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(isBackButton);
         getSupportActionBar().setDisplayHomeAsUpEnabled(isBackButton);
 
         //byta, växla mellan fragments
@@ -56,14 +57,7 @@ public class StartActivity extends AppCompatActivity {
 
 
 
-    protected boolean isPlayButton() {
-        return true;
-    }
 
-
-    protected boolean isAboutButton() {
-        return true;
-    }
 
     //create toolbar
     @Override
@@ -115,7 +109,7 @@ public class StartActivity extends AppCompatActivity {
 
 
     //buttons
-    public void playButtonClicked() {
+    private void playButtonClicked() {
 
 
          fragmentManager = getSupportFragmentManager();
@@ -129,7 +123,7 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-    public void InfoButtonClicked() {
+    private void InfoButtonClicked() {
 
         fragmentManager = getSupportFragmentManager();
         //förändra fragmentet

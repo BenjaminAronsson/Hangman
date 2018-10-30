@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Hangman {
     //fields
-    private String[] words;
+    private final String[] words;
     private int guessesLeft = 9;
     private static Random random = new Random();
     private ArrayList<String> guessedLetters = new ArrayList<>();
@@ -35,10 +35,6 @@ public class Hangman {
 
     public ArrayList<String> getGuessedLetters() {
         return guessedLetters;
-    }
-
-    public String getWord() {
-        return word;
     }
 
     public Hangman(Resources r) {
@@ -81,7 +77,7 @@ public class Hangman {
                 }
                 else {
                     //adds the
-                    builder.append(", " + letter);
+                    builder.append(", ").append(letter);
                 }
             }
         }
@@ -139,12 +135,7 @@ public class Hangman {
             return false;
         }
         //if letter is all ready used
-        else if (hasUsedLetter(guess)) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        else return !hasUsedLetter(guess);
     }
 
     private void guessForLetterInWord(String guess) {
@@ -194,7 +185,7 @@ public class Hangman {
     }
 
     //randomizes a new word from the list
-    public void newWord() {
+    private void newWord() {
         int index = random.nextInt(words.length);
         word = words[index].toLowerCase();
 

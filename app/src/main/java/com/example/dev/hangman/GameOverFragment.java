@@ -3,6 +3,7 @@ package com.example.dev.hangman;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -30,7 +33,7 @@ public class GameOverFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game_over, container, false);
     }
@@ -40,7 +43,7 @@ public class GameOverFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         //set view
-        guessesMadeView = getView().findViewById(R.id.gameOverMessage);
+        guessesMadeView = Objects.requireNonNull(getView()).findViewById(R.id.gameOverMessage);
         wordView = getView().findViewById(R.id.chosenWordTextView);
         endMessageView = getView().findViewById(R.id.guessesMadeTextView);
 
@@ -50,13 +53,13 @@ public class GameOverFragment extends Fragment {
 
         getActivity().findViewById(R.id.toMenyButton).setOnClickListener(
                 //points to method buttonClicked
-                this::backToMenu);
+                view -> backToMenu());
     }
 
-    private void backToMenu(View view) {
+    private void backToMenu() {
         Fragment menuFragment = StartActivity.menuFragment;
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack if needed

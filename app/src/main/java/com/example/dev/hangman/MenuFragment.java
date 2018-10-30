@@ -1,14 +1,15 @@
 package com.example.dev.hangman;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Objects;
 
 
 public class MenuFragment extends Fragment {
@@ -23,7 +24,7 @@ public class MenuFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_menu, container, false);
@@ -33,9 +34,9 @@ public class MenuFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        getActivity().findViewById(R.id.playButton).setOnClickListener(
+        Objects.requireNonNull(getActivity()).findViewById(R.id.playButton).setOnClickListener(
                 //points to method buttonClicked
-                this::playButtonClicked);
+                view -> playButtonClicked());
 
         getActivity().findViewById(R.id.aboutButton).setOnClickListener(
                 //points to method buttonClicked
@@ -43,12 +44,12 @@ public class MenuFragment extends Fragment {
     }
 
 
-    private void playButtonClicked(View view) {
+    private void playButtonClicked() {
         // Create new fragment and transaction
 
         Fragment gameFragment = StartActivity.gameFragment;
 
-        transaction = getFragmentManager().beginTransaction();
+        transaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack if needed
@@ -62,7 +63,7 @@ public class MenuFragment extends Fragment {
     private void aboutButtonClicked(View view) {
         // Create new fragment and transaction
         Fragment aboutFragment = StartActivity.aboutFragment;
-        transaction = getFragmentManager().beginTransaction();
+        transaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack if needed

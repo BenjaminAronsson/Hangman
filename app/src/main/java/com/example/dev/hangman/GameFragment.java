@@ -1,12 +1,13 @@
 package com.example.dev.hangman;
 
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.squareup.picasso.RequestCreator;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -45,14 +47,14 @@ public class GameFragment extends Fragment{
     private final int BILD = 9;
     private Hangman hangman = new Hangman();
     private final String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/";
-    private String theme = "standard";
+    private final String theme = "standard";
     private String pic = "hang0.gif";
     private String hangmanPicturePath;
     // This is the game object
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game, container, false);
@@ -78,7 +80,7 @@ public class GameFragment extends Fragment{
         //loadPreferences();
 
 
-        inputField = getView().findViewById(R.id.guessText);
+        inputField = Objects.requireNonNull(getView()).findViewById(R.id.guessText);
         guesses = getView().findViewById(R.id.hiddenWord);
         guessesMade = getView().findViewById(R.id.guessedLetters);
         hangmanView = getView().findViewById(R.id.hangmanView);
@@ -92,9 +94,9 @@ public class GameFragment extends Fragment{
         //loadResources();
         layoutUpdate();
 
-        getActivity().findViewById(R.id.guessButton).setOnClickListener(
+        Objects.requireNonNull(getActivity()).findViewById(R.id.guessButton).setOnClickListener(
                 //points to method buttonClicked
-                this::guessButtonPressed);
+                view -> guessButtonPressed());
 
     }
 
@@ -131,10 +133,10 @@ public class GameFragment extends Fragment{
         SharedPreferences prefs = getActivity().getSharedPreferences("default", MODE_PRIVATE);
         String word = prefs.getString("chosen word", "Hello");//"No name defined" is the default value.
         int guessesLeft = prefs.getInt("Guesses left", 0); //0 is the default value.
-        Set<String> temp = prefs.getStringSet("guesses made",  new HashSet<String>());//TODO null
+        Set<String> temp = prefs.getStringSet("guesses made", new HashSet<>());//TODO null
 
         //Set<String> userAllSet = temp;
-        ArrayList<String> guessedLetter = new ArrayList<String>(temp);
+        ArrayList<String> guessedLetter = new ArrayList<>(temp);
 
         hangman.setGuessesLeft(guessesLeft);
         hangman.setWord(word);
@@ -154,7 +156,7 @@ public class GameFragment extends Fragment{
     }
 
 
-    public void guessButtonPressed(View view) {
+    private void guessButtonPressed() {
 
         if(hangman.isGameContinuing()) {
 
@@ -171,28 +173,31 @@ public class GameFragment extends Fragment{
             layoutUpdate();
 
             //test if player won or lost
-            if (hangman.isWin()) {
-                gameWon();
-            } else if (hangman.isLose()) {
-                gameLost();
-                guesses.setText(hangman.getChoosenWord());
+            if (hangman.isWin() || hangman.isLose()) {
+                gameOver();
             }
         }
         inputField.setText("");
     }
 
-    private void gameWon() {
 
-        savePreferences();
 
-        startNewGame();
-    }
-
-    private void gameLost() {
+    private void gameOver() {
         //TODO change fragment to end
         savePreferences();
 
-        startNewGame();
+        // Create new fragment and transaction
+        Fragment gameOverFragment = StartActivity.gameOverFragment;
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack if needed
+        transaction.replace(R.id.mainFrame, gameOverFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+        //startNewGame();
     }
 
     private void layoutUpdate() {
@@ -217,34 +222,26 @@ public class GameFragment extends Fragment{
     private String getInput(EditText inputField) {
         //takes guess from input
 
-        String input = inputField.getText().toString();
-        return input;
+        return inputField.getText().toString();
 
     }
 
-    private boolean inputCorrect(String input) {
+    private void inputCorrect(String input) {
         //test for more then one character
         if (input.length() > 1) {
             toastWrongInput();
-            return false;
         }
         //test for no input
         else if (input.length() <= 0) {
             toastNoInput();
-            return false;
         }
         //test for letter all ready used
         else if (hangman.hasUsedLetter(input.toLowerCase())) {
             toastDuplicateGuess();
-            return false;
         }
         //test for special character
         else if(!Character.isAlphabetic(input.charAt(0))) {
             toastNoLetter();
-            return false;
-        }
-        else {
-            return true;
         }
     }
 
@@ -277,13 +274,9 @@ public class GameFragment extends Fragment{
                 .setIcon(android.R.drawable.ic_media_play)
                 .setTitle(R.string.new_game)
                 .setMessage(R.string.new_game2)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        hangman.newGame();
-                        layoutUpdate();
-                    }
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    hangman.newGame();
+                    layoutUpdate();
                 })
                 .setNegativeButton(R.string.no, null)
                 .show();

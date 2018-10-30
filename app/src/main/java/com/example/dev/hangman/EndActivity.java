@@ -4,7 +4,6 @@ package com.example.dev.hangman;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,7 +59,4 @@ public class EndActivity extends ActivityToolbar {
 
     }
 
-    public void toMenuButtonPressed(View view) {
-
-    }
 }

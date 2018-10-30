@@ -15,11 +15,10 @@
     <string name="guessButton">Gissa</string>
     <string name="goodLuck">Bättre lycka nästa gång!</string>
     <string name="Congratulation">Grattis</string>
-    <string name="aboutMenuButton">about</string>
-    <string name="playMenuPressed">Play</string>
-    <string name="aboutMessage">Hangman v1.0</string>
-    <string name="change_theme_button">Change theme</string>
-    <string name="toMenyButton">to Menu</string>
+    <string name="aboutMenuButton">Om</string>
+    <string name="playMenuPressed">Spela</string>
+    <string name="aboutMessage">Hängagubbe v1.0</string>
+    <string name="change_theme_button">Byt tema</string>
     <string name="hangmanFrame">hängagubbe</string>
     <string name="guesses_left1">"Det var: "</string>
     <string name="guesses_left2">" gissningar kvar"</string>
@@ -32,4 +31,5 @@
     <string name="yes">Ja</string>
     <string name="new_game">Nytt spel?</string>
     <string name="new_game2">Vill du spela ett nytt spel?</string>
+    <string name="toMenyButton">Till menyn</string>
 </resources>
