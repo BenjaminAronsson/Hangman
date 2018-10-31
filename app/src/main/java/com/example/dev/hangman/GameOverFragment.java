@@ -35,6 +35,11 @@ public class GameOverFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        if (container != null) {
+            container.removeAllViews();
+        }
+
         return inflater.inflate(R.layout.fragment_game_over, container, false);
     }
 
@@ -47,6 +52,9 @@ public class GameOverFragment extends Fragment {
         wordView = getView().findViewById(R.id.chosenWordTextView);
         endMessageView = getView().findViewById(R.id.guessesMadeTextView);
 
+        ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         //load data
         loadPreferences();
@@ -54,6 +62,7 @@ public class GameOverFragment extends Fragment {
         getActivity().findViewById(R.id.toMenyButton).setOnClickListener(
                 //points to method buttonClicked
                 view -> backToMenu());
+
     }
 
     private void backToMenu() {
@@ -92,6 +101,8 @@ public class GameOverFragment extends Fragment {
         endMessageView.setText(j);
 
     }
+
+
 
 
 }

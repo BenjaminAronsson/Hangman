@@ -51,7 +51,9 @@ public class GameFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
+        if (container != null) {
+            container.removeAllViews();
+        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game, container, false);
@@ -80,7 +82,8 @@ public class GameFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
+        ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
 
          //sets object references
          InitializeViewObjects();

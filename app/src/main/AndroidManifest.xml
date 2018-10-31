@@ -24,18 +24,9 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".GameActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysVisible" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-        <activity android:name=".SettingsActivity"
-            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".EndActivity"

@@ -167,4 +167,18 @@ public class StartActivity extends AppCompatActivity {
         else
             finish();
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        //byta, växla mellan fragments
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        //förändra fragmentet
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.mainFrame, menuFragment);
+
+        //skickar komandot
+        fragmentTransaction.commit();
+        return true;
+    }
 }

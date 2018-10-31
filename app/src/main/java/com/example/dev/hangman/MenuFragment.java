@@ -27,6 +27,11 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if (container != null) {
+            container.removeAllViews();
+        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_menu, container, false);
     }
@@ -34,6 +39,9 @@ public class MenuFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         Button playButton = Objects.requireNonNull(getActivity().findViewById(R.id.playButton));
         if (playButton != null) {

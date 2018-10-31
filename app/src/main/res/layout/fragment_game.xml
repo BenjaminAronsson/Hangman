@@ -81,7 +81,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guessButton"
             tools:text="Guess"
-            android:autofillHints="One Letter" />
+            android:autofillHints="One Letter" tools:targetApi="o"/>
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
