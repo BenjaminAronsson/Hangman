@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.Objects;
 
@@ -34,14 +35,21 @@ public class MenuFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Objects.requireNonNull(getActivity()).findViewById(R.id.playButton).setOnClickListener(
-                //points to method buttonClicked
-                view -> playButtonClicked());
+        Button playButton = Objects.requireNonNull(getActivity().findViewById(R.id.playButton));
+        if (playButton != null) {
+            playButton.setOnClickListener(
+                    //points to method buttonClicked
+                    view -> playButtonClicked());
+        }
 
-        getActivity().findViewById(R.id.aboutButton).setOnClickListener(
-                //points to method buttonClicked
-                this::aboutButtonClicked);
+        Button aboutButton = Objects.requireNonNull(getActivity().findViewById(R.id.aboutButton));
+        if (aboutButton != null) {
+            aboutButton.setOnClickListener(
+                    //points to method buttonClicked
+                    this::aboutButtonClicked);
+        }
     }
+
 
 
     private void playButtonClicked() {

@@ -31,4 +31,6 @@
     <string name="yes">yes</string>
     <string name="new_game">New game?</string>
     <string name="new_game2">Do you want to start a new game?</string>
+    <string name="new_game_button">New game</string>
+    <string name="change_theme_button_pressed">Theme changed</string>
 </resources>

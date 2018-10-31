@@ -1,6 +1,7 @@
 package com.example.dev.hangman;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,24 +37,56 @@ public class AboutFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Objects.requireNonNull(getActivity()).findViewById(R.id.themeButton).setOnClickListener(
+        /*Objects.requireNonNull(getActivity()).findViewById(R.id.themeButton).setOnClickListener(
                 //points to method buttonClicked
-                this::buttonClicked);
+                this::buttonClicked);*/
 
         //tells fragment it has a toolbar
         setHasOptionsMenu(true);
+
+        /******* theme ********/
+
+        Button theme_button = getActivity().findViewById(R.id.themeButton);
+        if(theme_button != null) {
+            theme_button.setOnClickListener(
+                    //points to method buttonClicked
+                    view -> themeButtonPressed(view));
+        }
+
+        /******* end theme ********/
+    }
+
+    private void themeButtonPressed(View view) {
+
+
+
+        StartActivity active = (StartActivity) getActivity();
+
+        view.findViewById(R.id.themeButton).setBackgroundColor(getResources().getColor(R.color.primaryColor));
+        /*if(active.getFlag() ) {
+            view.findViewById(R.id.themeButton).setBackgroundColor(getResources().getColor(R.color.primaryColor));
+        }
+        else {
+            view.findViewById(R.id.themeButton).setBackgroundColor(getResources().getColor(R.color.primaryColor));
+        }*/
+
+
+            ((Button)view).setText(R.string.change_theme_button_pressed);
+
+
+        active.themeButtonPressed();
     }
 
 
     private void buttonClicked(View view) {
-        ((Button)view).setText("Clicked");
+
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflater.inflate(R.menu.tool_bar, menu);
         menu.findItem(R.id.action_about).setVisible(false);
-        menu.findItem(R.id.action_play).setVisible(true);
+        menu.findItem(R.id.action_play).setVisible(false);
 
     }
 }

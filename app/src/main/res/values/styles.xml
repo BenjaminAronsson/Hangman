@@ -14,4 +14,15 @@
         <item name="colorControlNormal">#d11472</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="halloween" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#ff8521</item>
+        <item name="colorPrimaryDark">#ffb654</item>
+        <item name="colorAccent">#c55600</item>
+        <item name="android:textColorSecondaryInverse">@color/primaryTextColor</item>
+
+        <!--<item name="android:background">@color/colorPrimary</item>-->
+    </style>
+
 </resources>

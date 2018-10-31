@@ -85,18 +85,6 @@ public class GameActivity extends ActivityToolbar {
 
 
     private void loadResources() {
-        //Preload images TODO add to web
-        images.add(getResources().getDrawable(R.drawable.hang0, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang1, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang2, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang3, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang4, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang5, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang6, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang7, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang8, getTheme()));
-        images.add(getResources().getDrawable(R.drawable.hang9, getTheme()));
-
 
 
     }
@@ -188,11 +176,6 @@ public class GameActivity extends ActivityToolbar {
         String pictureNumber = Integer.toString(hangman.getGuessesLeft());
         hangmanPicturePath = PATH_TO_RESOURCES + theme +"/" +"hang" + pictureNumber;
 */
-        //update hangman pic
-        if (hangman.getGuessesLeft() < 10) {
-            hangmanView.setImageDrawable(images.get(hangman.getGuessesLeft()));
-            hangmanView.setTag(hangman.getGuessesLeft());
-        }
 
         //updates text field
         guesses.setText(hangman.getHiddenWord());

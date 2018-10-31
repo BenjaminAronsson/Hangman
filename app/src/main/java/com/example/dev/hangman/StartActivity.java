@@ -1,6 +1,9 @@
 package com.example.dev.hangman;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import java.util.Objects;
 
@@ -26,12 +30,18 @@ public class StartActivity extends AppCompatActivity {
     private boolean isBackButton = false;
     private boolean isPlayButton = true;
     private boolean isAboutButton = true;
-    private boolean isNewWord = true;
+    private boolean isNewWord = false;
 
     //toolbar visibility
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+
+        //sets the theme
+        //setTheme(getFlag() ? R.style.AppTheme : R.style.halloween);
+        setTheme(R.style.halloween);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
@@ -39,6 +49,9 @@ public class StartActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
+        //TODO fragment wont reappear after theme change
         //sets back button on toolbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(isBackButton);
         getSupportActionBar().setDisplayHomeAsUpEnabled(isBackButton);
@@ -55,8 +68,26 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
+    public void themeButtonPressed() {
 
+        saveFlag(!getFlag());
+        //TODO make app theme
+        /*Intent intent = new Intent(StartActivity.this, StartActivity.class);
+        startActivity(intent);
+        finish();*/
+    }
 
+    private void saveFlag(boolean flag) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("theme", flag);
+        editor.commit();
+    }
+
+    public boolean getFlag() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        return sharedPreferences.getBoolean("theme", false);
+    }
 
 
     //create toolbar
@@ -75,9 +106,6 @@ public class StartActivity extends AppCompatActivity {
         MenuItem aboutItem = menu.findItem(R.id.action_about);
         aboutItem.setVisible(isAboutButton);
 
-        //displays new word item
-        MenuItem newWordItem = menu.findItem(R.id.action_new_word);
-        newWordItem.setVisible(isNewWord);
 
         return true;
     }
@@ -92,9 +120,6 @@ public class StartActivity extends AppCompatActivity {
                 return true;
             case R.id.action_about:
                 InfoButtonClicked();
-                return true;
-            case R.id.action_new_word:
-                newGame();
                 return true;
             case R.id.home:
                 finish();

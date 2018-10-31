@@ -35,36 +35,56 @@ public class GameFragment extends Fragment{
         // Required empty public constructor
     }
 
-
-    private String[] wordArray;
     private EditText inputField;
     private TextView guesses;
     private TextView guessesMade;
     private ImageView hangmanView;
     private SharedPreferences sharedPreferences;
-    private List<Drawable> images= new ArrayList<>();
-    private final int BILD = 9;
     private Hangman hangman = new Hangman();
     private final String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/theme/";
-    private final String theme = "halloween/";
-    private String pic = "hang0.gif";
-    private String hangmanPicturePath = PATH_TO_RESOURCES +theme;
-    private final int HANGMAN_PLACEHOLDER = R.drawable.hang9;
+    private String theme = "halloween/";
+    private String hangmanPicturePath;
+    private final int HANGMAN_PLACEHOLDER = R.drawable.hanger;
                                                    
     // This is the game object
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game, container, false);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        StartActivity active = (StartActivity) getActivity();
+        if(active.getFlag() ) {
+            theme ="standard/";
+        }
+        else {
+            theme = "halloween/";
+        }
+        hangmanPicturePath = PATH_TO_RESOURCES + theme;
+
+        //draws layout
+        layoutUpdate();
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
+
          //sets object references
          InitializeViewObjects();
+
 
         //Preload images
         Picasso.get().load(hangmanPicturePath).placeholder(HANGMAN_PLACEHOLDER).into(hangmanView);
@@ -81,17 +101,17 @@ public class GameFragment extends Fragment{
         //load game
         hangman = hangman.loadGame(getResources());
 
-        //loadPreferences();
 
-        //draws layout
-        layoutUpdate();
 
         //set onclick listener for guess button
         Objects.requireNonNull(getActivity()).findViewById(R.id.guessButton).setOnClickListener(
                 //points to method buttonClicked
                 view -> guessButtonPressed());
 
+        //getActivity().findViewById(R.id.newGameButton).setOnClickListener(view -> startNewGame());
     }
+
+
 
     private void InitializeViewObjects() {
 
@@ -99,7 +119,7 @@ public class GameFragment extends Fragment{
         guesses = getView().findViewById(R.id.hiddenWord);
         guessesMade = getView().findViewById(R.id.guessedLetters);
         hangmanView = getActivity().findViewById(R.id.hangmanView);
-        hangmanView.setTag(BILD);
+        hangmanView.setTag(hangman.getGuessesLeft());
 
         //sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
     }

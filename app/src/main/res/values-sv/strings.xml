@@ -32,4 +32,6 @@
     <string name="new_game">Nytt spel?</string>
     <string name="new_game2">Vill du spela ett nytt spel?</string>
     <string name="toMenyButton">Till menyn</string>
+    <string name="new_game_button">Nytt spel</string>
+    <string name="change_theme_button_pressed">Tema är ändrat</string>
 </resources>
