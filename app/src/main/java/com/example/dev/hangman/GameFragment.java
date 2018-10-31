@@ -82,8 +82,8 @@ public class GameFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+        ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
          //sets object references
          InitializeViewObjects();

@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -37,34 +38,39 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
+try {
+    //sets the theme
+    //setTheme(getFlag() ? R.style.AppTheme : R.style.halloween);
+    setTheme(R.style.halloween);
 
-        //sets the theme
-        //setTheme(getFlag() ? R.style.AppTheme : R.style.halloween);
-        setTheme(R.style.halloween);
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_start);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-
-        //sets toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    //sets toolbar
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
 
 
+    //TODO fragment wont reappear after theme change
+    //sets back button on toolbar
+    Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(isBackButton);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(isBackButton);
 
-        //TODO fragment wont reappear after theme change
-        //sets back button on toolbar
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(isBackButton);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(isBackButton);
+    //byta, växla mellan fragments
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
-        //byta, växla mellan fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
+    //förändra fragmentet
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    fragmentTransaction.add(R.id.mainFrame, menuFragment);
 
-        //förändra fragmentet
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.mainFrame, menuFragment);
+    //skickar komandot
+    fragmentTransaction.commit();
+}
+catch (Exception e) {
+    String i = e.getMessage();
 
-        //skickar komandot
-        fragmentTransaction.commit();
+    Log.i("Exception", i);
+}
 
     }
 
@@ -175,10 +181,11 @@ public class StartActivity extends AppCompatActivity {
 
         //förändra fragmentet
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.mainFrame, menuFragment);
+        fragmentTransaction.replace(R.id.mainFrame, menuFragment);
 
         //skickar komandot
         fragmentTransaction.commit();
+        fragmentManager.popBackStack();
         return true;
     }
 }
