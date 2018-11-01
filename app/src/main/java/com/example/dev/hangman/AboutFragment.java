@@ -1,7 +1,7 @@
 package com.example.dev.hangman;
 
 
-import android.content.res.Resources;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,9 +12,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import java.util.Objects;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,11 +80,6 @@ public class AboutFragment extends Fragment {
 
 
         active.themeButtonPressed();
-    }
-
-
-    private void buttonClicked(View view) {
-
     }
 
     @Override

@@ -31,7 +31,6 @@ public class StartActivity extends AppCompatActivity {
     private boolean isBackButton = false;
     private boolean isPlayButton = true;
     private boolean isAboutButton = true;
-    private boolean isNewWord = false;
 
     //toolbar visibility
 
@@ -78,9 +77,12 @@ catch (Exception e) {
 
         saveFlag(!getFlag());
         //TODO make app theme
-        /*Intent intent = new Intent(StartActivity.this, StartActivity.class);
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0 ) {
+            getSupportFragmentManager().popBackStack();
+        }
+        Intent intent = new Intent(StartActivity.this, StartActivity.class);
         startActivity(intent);
-        finish();*/
+        finish();
     }
 
     private void saveFlag(boolean flag) {
@@ -121,7 +123,6 @@ catch (Exception e) {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_play:
-                //TODO add action
                 playButtonClicked();
                 return true;
             case R.id.action_about:
@@ -134,11 +135,6 @@ catch (Exception e) {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    private void newGame() {
-        //Hangman.newGame() todo
-    }
-
 
     //buttons
     private void playButtonClicked() {
@@ -168,10 +164,12 @@ catch (Exception e) {
 
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0 )
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0 ) {
             getSupportFragmentManager().popBackStack();
-        else
+        }
+        else {
             finish();
+        }
     }
 
     @Override

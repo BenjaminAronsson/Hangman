@@ -17,12 +17,9 @@ public class MenuFragment extends Fragment {
 
     private FragmentTransaction transaction;
 
-
     public MenuFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -57,8 +54,6 @@ public class MenuFragment extends Fragment {
                     this::aboutButtonClicked);
         }
     }
-
-
 
     private void playButtonClicked() {
         // Create new fragment and transaction

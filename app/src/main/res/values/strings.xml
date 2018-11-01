@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Hangman</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="action_favorite" translatable="false">favorite</string>
     <string name="action_settings" translatable="false">Settings</string>

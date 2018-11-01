@@ -59,7 +59,6 @@ public class GameFragment extends Fragment{
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -114,8 +113,6 @@ public class GameFragment extends Fragment{
         //getActivity().findViewById(R.id.newGameButton).setOnClickListener(view -> startNewGame());
     }
 
-
-
     private void InitializeViewObjects() {
 
         inputField = Objects.requireNonNull(getView()).findViewById(R.id.guessText);
@@ -127,10 +124,8 @@ public class GameFragment extends Fragment{
         //sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
     }
 
-
     private void loadHangmanImages() {
 
-         //TODO add theme
          //load images number
          String imagesNumber = "hang"+ Integer.toString(hangman.getGuessesLeft()) +".gif";
 
@@ -159,7 +154,7 @@ public class GameFragment extends Fragment{
         SharedPreferences prefs = getActivity().getSharedPreferences("default", MODE_PRIVATE);
         String word = prefs.getString("chosen word", "Hello");//"No name defined" is the default value.
         int guessesLeft = prefs.getInt("Guesses left", 0); //0 is the default value.
-        Set<String> temp = prefs.getStringSet("guesses made", new HashSet<>());//TODO null
+        Set<String> temp = prefs.getStringSet("guesses made", new HashSet<>());//TODO if null
 
         //Set<String> userAllSet = temp;
         ArrayList<String> guessedLetter = new ArrayList<>(temp);
@@ -190,7 +185,7 @@ public class GameFragment extends Fragment{
             String input = getInput(inputField);
 
             //tests if input is valid
-            inputCorrect(input); //TODO check
+            inputCorrect(input);
 
             //guesses
             hangman.guess(input);
@@ -207,7 +202,6 @@ public class GameFragment extends Fragment{
     }
 
     private void gameOver() {
-        //TODO change fragment to end
         savePreferences();
 
         // Create new fragment and transaction
