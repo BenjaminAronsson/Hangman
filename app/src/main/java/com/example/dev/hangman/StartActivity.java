@@ -31,6 +31,8 @@ public class StartActivity extends AppCompatActivity {
     private boolean isBackButton = false;
     private boolean isPlayButton = true;
     private boolean isAboutButton = true;
+    private boolean isNewGameButton = false;
+
 
     //toolbar visibility
 
@@ -76,13 +78,6 @@ catch (Exception e) {
     public void themeButtonPressed() {
 
         saveFlag(!getFlag());
-        //TODO make app theme
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0 ) {
-            getSupportFragmentManager().popBackStack();
-        }
-        Intent intent = new Intent(StartActivity.this, StartActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     private void saveFlag(boolean flag) {
@@ -114,6 +109,10 @@ catch (Exception e) {
         MenuItem aboutItem = menu.findItem(R.id.action_about);
         aboutItem.setVisible(isAboutButton);
 
+        //displays new game item
+        MenuItem newGame = menu.findItem(R.id.action_newGame);
+        aboutItem.setVisible(isNewGameButton);
+
 
         return true;
     }
@@ -121,12 +120,23 @@ catch (Exception e) {
     //on toolbar click
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Fragment game = getSupportFragmentManager().findFragmentByTag("gameID");
+
         switch (item.getItemId()) {
             case R.id.action_play:
-                playButtonClicked();
+                //om game fragmentet visas
+                if(game != null && game.isVisible() ) {
+
+                }else {
+                    playButtonClicked();
+                }
                 return true;
             case R.id.action_about:
                 InfoButtonClicked();
+                return true;
+            case R.id.action_newGame:
+                newGameButtonClicked();
                 return true;
             case R.id.home:
                 finish();
@@ -143,7 +153,22 @@ catch (Exception e) {
          fragmentManager = getSupportFragmentManager();
         //förändra fragmentet
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.mainFrame, gameFragment);
+        fragmentTransaction.replace(R.id.mainFrame, gameFragment,"gameID");
+        fragmentTransaction.addToBackStack(null);
+        //skickar komandot
+
+        fragmentTransaction.commit();
+
+    }
+
+    //buttons
+    private void newGameButtonClicked() {
+
+    //TODO start new game
+        fragmentManager = getSupportFragmentManager();
+        //förändra fragmentet
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.mainFrame, gameOverFragment,"gameOverID");
         fragmentTransaction.addToBackStack(null);
         //skickar komandot
 
@@ -156,7 +181,7 @@ catch (Exception e) {
         fragmentManager = getSupportFragmentManager();
         //förändra fragmentet
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.mainFrame, aboutFragment);
+        fragmentTransaction.replace(R.id.mainFrame, aboutFragment, "aboutID");
         fragmentTransaction.addToBackStack(null);
         //skickar komandot
         fragmentTransaction.commit();
@@ -164,7 +189,7 @@ catch (Exception e) {
 
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0 ) {
+        if(getSupportFragmentManager() != null && getSupportFragmentManager().getBackStackEntryCount() > 0 ) {
             getSupportFragmentManager().popBackStack();
         }
         else {

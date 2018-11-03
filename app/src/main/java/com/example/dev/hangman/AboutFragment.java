@@ -62,23 +62,11 @@ public class AboutFragment extends Fragment {
     }
 
     private void themeButtonPressed(View view) {
-
-
-
+        //get activity
         StartActivity active = (StartActivity) getActivity();
 
         view.findViewById(R.id.themeButton).setBackgroundColor(getResources().getColor(R.color.primaryColor));
-        /*if(active.getFlag() ) {
-            view.findViewById(R.id.themeButton).setBackgroundColor(getResources().getColor(R.color.primaryColor));
-        }
-        else {
-            view.findViewById(R.id.themeButton).setBackgroundColor(getResources().getColor(R.color.primaryColor));
-        }*/
-
-
-            ((Button)view).setText(R.string.change_theme_button_pressed);
-
-
+        ((Button)view).setText(R.string.change_theme_button_pressed);
         active.themeButtonPressed();
     }
 
@@ -87,6 +75,8 @@ public class AboutFragment extends Fragment {
         //inflater.inflate(R.menu.tool_bar, menu);
         menu.findItem(R.id.action_about).setVisible(false);
         menu.findItem(R.id.action_play).setVisible(false);
-
+        menu.findItem(R.id.action_newGame).setVisible(false);
     }
+
+
 }

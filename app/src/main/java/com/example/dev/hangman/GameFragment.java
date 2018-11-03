@@ -11,6 +11,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -81,6 +84,8 @@ public class GameFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
+        setHasOptionsMenu(true);
         ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -201,22 +206,6 @@ public class GameFragment extends Fragment{
         inputField.setText("");
     }
 
-    private void gameOver() {
-        savePreferences();
-
-        // Create new fragment and transaction
-        Fragment gameOverFragment = StartActivity.gameOverFragment;
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack if needed
-        transaction.replace(R.id.mainFrame, gameOverFragment);
-        transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
-        //startNewGame();
-    }
 
     private void layoutUpdate() {
 
@@ -229,6 +218,41 @@ public class GameFragment extends Fragment{
         inputField.setText("");
 
     }
+
+    private void gameOver() {
+        savePreferences();
+
+        // Create new fragment and transaction
+        Fragment gameOverFragment = StartActivity.gameOverFragment;
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack if needed
+        transaction.replace(R.id.mainFrame, gameOverFragment, "gameOverID");
+
+
+        // Commit the transaction
+        transaction.commit();
+        //startNewGame();
+    }
+
+    public void startNewGame() {
+        new AlertDialog.Builder(getContext())
+                .setIcon(android.R.drawable.ic_media_play)
+                .setTitle(R.string.new_game)
+                .setMessage(R.string.new_game2)
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
+                    hangman.newGame();
+                    layoutUpdate();
+                })
+                .setNegativeButton(R.string.no, null)
+                .show();
+    }
+
+
+
+
+
 
     private String getInput(EditText inputField) {
         //takes guess from input
@@ -280,17 +304,15 @@ public class GameFragment extends Fragment{
         myToast.show();
     }
 
-    public void startNewGame() {
-        new AlertDialog.Builder(getContext())
-                .setIcon(android.R.drawable.ic_media_play)
-                .setTitle(R.string.new_game)
-                .setMessage(R.string.new_game2)
-                .setPositiveButton(R.string.yes, (dialog, which) -> {
-                    hangman.newGame();
-                    layoutUpdate();
-                })
-                .setNegativeButton(R.string.no, null)
-                .show();
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //inflater.inflate(R.menu.tool_bar, menu);
+        menu.findItem(R.id.action_about).setVisible(true);
+        menu.findItem(R.id.action_play).setVisible(false);
+        menu.findItem(R.id.action_newGame).setVisible(true);
     }
+
+
+
 
 }

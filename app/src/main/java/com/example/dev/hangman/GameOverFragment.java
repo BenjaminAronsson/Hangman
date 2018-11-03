@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -46,6 +48,9 @@ public class GameOverFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        //tells fragment it has a toolbar
+        setHasOptionsMenu(true);
 
         //set view
         guessesMadeView = Objects.requireNonNull(getView()).findViewById(R.id.gameOverMessage);
@@ -102,7 +107,13 @@ public class GameOverFragment extends Fragment {
 
     }
 
-
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //inflater.inflate(R.menu.tool_bar, menu);
+        menu.findItem(R.id.action_about).setVisible(true);
+        menu.findItem(R.id.action_play).setVisible(false);
+        menu.findItem(R.id.action_newGame).setVisible(true);
+    }
 
 
 }

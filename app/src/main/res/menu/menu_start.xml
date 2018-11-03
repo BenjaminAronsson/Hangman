@@ -7,6 +7,10 @@
 
 
     <item
+        android:id="@+id/action_newGame"
+        android:icon="@drawable/ic_refresh"
+        android:title="New Game" />
+    <item
         android:id="@+id/action_play"
         android:icon="@drawable/ic_play_arrow_black_24dp"
         android:title="@string/playMenuPressed"

@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -37,6 +39,8 @@ public class MenuFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
+        setHasOptionsMenu(true);
         ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
 
@@ -83,6 +87,14 @@ public class MenuFragment extends Fragment {
 
         // Commit the transaction
         transaction.commit();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //inflater.inflate(R.menu.tool_bar, menu);
+        menu.findItem(R.id.action_about).setVisible(true);
+        menu.findItem(R.id.action_play).setVisible(true);
+        menu.findItem(R.id.action_newGame).setVisible(false);
     }
 
     @Override
