@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="infoButton">Info</string>
+    <string name="info_button">Info</string>
 
     <string-array name="wordList">
         <item>stol</item>
@@ -10,16 +10,16 @@
         <item>Flygplan</item>
         <item>panda</item>
     </string-array>
-    <string name="welcomeMessage">Välkommen</string>
-    <string name="guessText">Gissa</string>
-    <string name="guessButton">Gissa</string>
-    <string name="goodLuck">Bättre lycka nästa gång!</string>
+    <string name="welcome_message">Välkommen</string>
+    <string name="guess_text">Gissa</string>
+    <string name="guess_button">Gissa</string>
+    <string name="good_luck">Bättre lycka nästa gång!</string>
     <string name="Congratulation">Grattis</string>
-    <string name="aboutMenuButton">Om</string>
-    <string name="playMenuPressed">Spela</string>
-    <string name="aboutMessage">Hängagubbe v1.0</string>
+    <string name="about_menu_button">Om</string>
+    <string name="play_menu_pressed">Spela</string>
+    <string name="about_message">Hängagubbe v1.0</string>
     <string name="change_theme_button">Byt tema</string>
-    <string name="hangmanFrame">hängagubbe</string>
+    <string name="hangman_frame">hängagubbe</string>
     <string name="guesses_left1">"Det var: "</string>
     <string name="guesses_left2">" gissningar kvar"</string>
     <string name="word_was">"Ordet var: "</string>
@@ -27,11 +27,5 @@
     <string name="toast2">Du kan bara mata in bokstäver</string>
     <string name="toast3">Du kan ändast mata in en bokstav i taget</string>
     <string name="toast4">Du får bara använda samma bokstav en gång</string>
-    <string name="no">nej</string>
-    <string name="yes">Ja</string>
-    <string name="new_game">Nytt spel?</string>
-    <string name="new_game2">Vill du spela ett nytt spel?</string>
-    <string name="toMenyButton">Till menyn</string>
-    <string name="new_game_button">Nytt spel</string>
-    <string name="change_theme_button_pressed">Tema är ändrat</string>
+    <string name="to_meny_button">Till menyn</string>
 </resources>

@@ -32,8 +32,6 @@ public class GameOverFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -51,23 +49,29 @@ public class GameOverFragment extends Fragment {
 
         //tells fragment it has a toolbar
         setHasOptionsMenu(true);
+        Objects.requireNonNull(((StartActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((StartActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
+
 
         //set view
-        guessesMadeView = Objects.requireNonNull(getView()).findViewById(R.id.gameOverMessage);
+        endMessageView = Objects.requireNonNull(getView()).findViewById(R.id.gameOverMessage);
         wordView = getView().findViewById(R.id.chosenWordTextView);
-        endMessageView = getView().findViewById(R.id.guessesMadeTextView);
-
-        ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        guessesMadeView = getView().findViewById(R.id.guessesMadeTextView);
 
 
-        //load data
-        loadPreferences();
 
+        //adds button
         getActivity().findViewById(R.id.toMenyButton).setOnClickListener(
                 //points to method buttonClicked
                 view -> backToMenu());
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //load data
+        loadPreferences();
     }
 
     private void backToMenu() {
@@ -76,31 +80,34 @@ public class GameOverFragment extends Fragment {
         FragmentTransaction transaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack if needed
         transaction.replace(R.id.mainFrame, menuFragment);
-        // Commit the transaction
+        // and add the transaction to the back stack if needed
         transaction.addToBackStack(null);
+        // Commit the transaction
         transaction.commit();
     }
 
     private void loadPreferences() {
 
         //load data
-        SharedPreferences prefs = getActivity().getSharedPreferences("default", MODE_PRIVATE);
+        SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences("default", MODE_PRIVATE);
         String word = prefs.getString("chosen word", "Hello");//"No name defined" is the default value.
         int guessesLeft = prefs.getInt("guesses left", 10); //0 is the default value.
         boolean isWin = prefs.getBoolean("is win",  false);
 
+
         String i = Integer.toString(guessesLeft);
+
+        //test for win or lose
         String j;
         if (isWin) {
             j = getString(R.string.Congratulation);
         }
         else {
-            //j = "Better luck next time";
-            j = getString(R.string.goodLuck);
+            j = getString(R.string.good_luck);
         }
 
+        //sets text fields
         guessesMadeView.setText(getString(R.string.guesses_left1) +i +getString(R.string.guesses_left2));
         wordView.setText(getString(R.string.word_was) +word);
         endMessageView.setText(j);
@@ -109,10 +116,9 @@ public class GameOverFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.tool_bar, menu);
+        //sets visible items
         menu.findItem(R.id.action_about).setVisible(true);
         menu.findItem(R.id.action_play).setVisible(false);
-        menu.findItem(R.id.action_newGame).setVisible(true);
     }
 
 

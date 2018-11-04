@@ -39,11 +39,12 @@ public class MenuFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
+        //set toolbar
         setHasOptionsMenu(true);
-        ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+        Objects.requireNonNull(((StartActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(((StartActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(false);
 
+        //button listener
         Button playButton = Objects.requireNonNull(getActivity().findViewById(R.id.playButton));
         if (playButton != null) {
             playButton.setOnClickListener(
@@ -60,10 +61,9 @@ public class MenuFragment extends Fragment {
     }
 
     private void playButtonClicked() {
+
         // Create new fragment and transaction
-
         Fragment gameFragment = StartActivity.gameFragment;
-
         transaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
@@ -91,17 +91,11 @@ public class MenuFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.tool_bar, menu);
+        //sets toolbar
         menu.findItem(R.id.action_about).setVisible(true);
         menu.findItem(R.id.action_play).setVisible(true);
-        menu.findItem(R.id.action_newGame).setVisible(false);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
 }
 
 

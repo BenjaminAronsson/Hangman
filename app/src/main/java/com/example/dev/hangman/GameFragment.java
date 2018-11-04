@@ -2,18 +2,15 @@ package com.example.dev.hangman;
 
 
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,11 +20,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -42,13 +35,9 @@ public class GameFragment extends Fragment{
     private TextView guesses;
     private TextView guessesMade;
     private ImageView hangmanView;
-    private SharedPreferences sharedPreferences;
     private Hangman hangman = new Hangman();
-    private final String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/theme/";
-    private String theme = "halloween/";
     private String hangmanPicturePath;
-    private final int HANGMAN_PLACEHOLDER = R.drawable.hanger;
-                                                   
+
     // This is the game object
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -66,13 +55,16 @@ public class GameFragment extends Fragment{
     public void onResume() {
         super.onResume();
 
+        //loads theme from activity
         StartActivity active = (StartActivity) getActivity();
-        if(active.getFlag() ) {
+        String theme;
+        if(Objects.requireNonNull(active).getFlag() ) {
             theme ="standard/";
         }
         else {
             theme = "halloween/";
         }
+        String PATH_TO_RESOURCES = "https://benjaminaronsson.github.io/Hangman/theme/";
         hangmanPicturePath = PATH_TO_RESOURCES + theme;
 
         //draws layout
@@ -85,48 +77,38 @@ public class GameFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
 
 
+        //sets toolbar
         setHasOptionsMenu(true);
-        ((StartActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((StartActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(((StartActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(((StartActivity) getActivity()).getSupportActionBar()).setDisplayShowHomeEnabled(true);
 
          //sets object references
          InitializeViewObjects();
 
 
         //Preload images
+        int HANGMAN_PLACEHOLDER = R.drawable.hanger;
         Picasso.get().load(hangmanPicturePath).placeholder(HANGMAN_PLACEHOLDER).into(hangmanView);
 
-        //test if activity is reactivated from on start
-        if( savedInstanceState != null)
-        {
-            //Restart of activity after configuration change
-        }
 
-        //create game    //TODO add word list from web                           
-        hangman = new Hangman(getResources());
 
         //load game
-        hangman = hangman.loadGame(getResources());
-
-
+        hangman = hangman.loadGame(getResources().getStringArray(R.array.wordList));
 
         //set onclick listener for guess button
         Objects.requireNonNull(getActivity()).findViewById(R.id.guessButton).setOnClickListener(
                 //points to method buttonClicked
                 view -> guessButtonPressed());
-
-        //getActivity().findViewById(R.id.newGameButton).setOnClickListener(view -> startNewGame());
     }
 
     private void InitializeViewObjects() {
 
+        //find all views
         inputField = Objects.requireNonNull(getView()).findViewById(R.id.guessText);
         guesses = getView().findViewById(R.id.hiddenWord);
         guessesMade = getView().findViewById(R.id.guessedLetters);
-        hangmanView = getActivity().findViewById(R.id.hangmanView);
+        hangmanView = Objects.requireNonNull(getActivity()).findViewById(R.id.hangmanView);
         hangmanView.setTag(hangman.getGuessesLeft());
-
-        //sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
     }
 
     private void loadHangmanImages() {
@@ -146,34 +128,13 @@ public class GameFragment extends Fragment{
     @Override
     public void onPause() {
         super.onPause();
-        //SavePreferences();
         hangman.saveGame();
 
     }
 
-    private void loadPreferences() {
-
-
-
-        //save data
-        SharedPreferences prefs = getActivity().getSharedPreferences("default", MODE_PRIVATE);
-        String word = prefs.getString("chosen word", "Hello");//"No name defined" is the default value.
-        int guessesLeft = prefs.getInt("Guesses left", 0); //0 is the default value.
-        Set<String> temp = prefs.getStringSet("guesses made", new HashSet<>());//TODO if null
-
-        //Set<String> userAllSet = temp;
-        ArrayList<String> guessedLetter = new ArrayList<>(temp);
-
-        hangman.setGuessesLeft(guessesLeft);
-        hangman.setWord(word);
-        hangman.setGuessedLetters(guessedLetter);
-
-    }
-
     private void savePreferences() {
-        // MY_PREFS_NAME - a static String variable like:
-        //public static final String MY_PREFS_NAME = "MyPrefsFile";
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences("default", MODE_PRIVATE).edit();
+        //save all necessary data
+        SharedPreferences.Editor editor = Objects.requireNonNull(getActivity()).getSharedPreferences("default", MODE_PRIVATE).edit();
         editor.putString("chosen word", hangman.getChoosenWord());
         editor.putInt("guesses left", hangman.getGuessesLeft());
         editor.putBoolean("is win", hangman.isWin());
@@ -183,6 +144,7 @@ public class GameFragment extends Fragment{
 
 
     private void guessButtonPressed() {
+
 
         if(hangman.isGameContinuing()) {
 
@@ -220,43 +182,24 @@ public class GameFragment extends Fragment{
     }
 
     private void gameOver() {
+        //save data
         savePreferences();
 
+        //starts new games
+        hangman.newGame();
         // Create new fragment and transaction
         Fragment gameOverFragment = StartActivity.gameOverFragment;
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack if needed
         transaction.replace(R.id.mainFrame, gameOverFragment, "gameOverID");
-
 
         // Commit the transaction
         transaction.commit();
-        //startNewGame();
     }
-
-    public void startNewGame() {
-        new AlertDialog.Builder(getContext())
-                .setIcon(android.R.drawable.ic_media_play)
-                .setTitle(R.string.new_game)
-                .setMessage(R.string.new_game2)
-                .setPositiveButton(R.string.yes, (dialog, which) -> {
-                    hangman.newGame();
-                    layoutUpdate();
-                })
-                .setNegativeButton(R.string.no, null)
-                .show();
-    }
-
-
-
-
-
 
     private String getInput(EditText inputField) {
-        //takes guess from input
-
+        //takes guess from input field
         return inputField.getText().toString();
 
     }
@@ -306,13 +249,9 @@ public class GameFragment extends Fragment{
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.tool_bar, menu);
+        //sets visible items
         menu.findItem(R.id.action_about).setVisible(true);
         menu.findItem(R.id.action_play).setVisible(false);
-        menu.findItem(R.id.action_newGame).setVisible(true);
     }
-
-
-
 
 }

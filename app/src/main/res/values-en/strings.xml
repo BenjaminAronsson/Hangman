@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="infoButton">Info</string>
+    <string name="info_button">Info</string>
 
     <string-array name="wordList">
         <item>chair</item>
@@ -9,17 +9,17 @@
         <item>gameconsole</item>
         <item>airplane</item>
     </string-array>
-    <string name="welcomeMessage">Welcome</string>
-    <string name="guessText">Guess</string>
-    <string name="guessButton">Guess</string>
-    <string name="goodLuck">Better luck next time</string>
+    <string name="welcome_message">Welcome</string>
+    <string name="guess_text">Guess</string>
+    <string name="guess_button">Guess</string>
+    <string name="good_luck">Better luck next time</string>
     <string name="Congratulation">Congratulation!</string>
-    <string name="aboutMenuButton">about</string>
-    <string name="playMenuPressed">Play</string>
-    <string name="aboutMessage">Hangman v1.0</string>
+    <string name="about_menu_button">about</string>
+    <string name="play_menu_pressed">Play</string>
+    <string name="about_message">Hangman v1.0</string>
     <string name="change_theme_button">Change theme</string>
-    <string name="toMenyButton">to Menu</string>
-    <string name="hangmanFrame">hangman</string>
+    <string name="to_meny_button">to Menu</string>
+    <string name="hangman_frame">hangman</string>
     <string name="guesses_left1">"There was: "</string>
     <string name="guesses_left2">" guesses left"</string>
     <string name="word_was">"The word was: "</string>
@@ -27,10 +27,4 @@
     <string name="toast2">You can only use letters!</string>
     <string name="toast3">You can only guess on one letter at a time!</string>
     <string name="toast4">You can only guess on the same letter once!</string>
-    <string name="no">No</string>
-    <string name="yes">yes</string>
-    <string name="new_game">New game?</string>
-    <string name="new_game2">Do you want to start a new game?</string>
-    <string name="new_game_button">New game</string>
-    <string name="change_theme_button_pressed">Theme changed</string>
 </resources>

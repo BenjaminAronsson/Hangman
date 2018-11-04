@@ -10,9 +10,9 @@ public class Hangman {
     //fields
     private final String[] words;
     private int guessesLeft = 9;
-    private static Random random = new Random();
+    private static final Random random = new Random();
     private ArrayList<String> guessedLetters = new ArrayList<>();
-    private ArrayList<Boolean> hiddenWord = new ArrayList<>();
+    private final ArrayList<Boolean> hiddenWord = new ArrayList<>();
     private String word = "Hello";
     private static Hangman data = null;
 
@@ -203,16 +203,17 @@ public class Hangman {
     public void newGame() {
         newWord();
         guessesLeft = 9;
-        guessedLetters = new ArrayList<>(); //TODO clear old list
+        guessedLetters = new ArrayList<>();
     }
 
-    public Hangman loadGame(Resources r) {
+    //loads new game
+    public static Hangman loadGame(String[] wordlist) {
             if (data == null){
-                String[] list = r.getStringArray(R.array.wordList);
+                String[] list = wordlist;
                 if (list == null) {
                     return new Hangman();
                 }
-                return new Hangman(r);
+                return new Hangman(wordlist);
             }
             return data;
 
