@@ -62,6 +62,10 @@ public class Hangman {
        newWord();
     }
 
+
+
+
+
     //Returns a String with all wrong guesses the user has made
     public String getBadLettersUsed() {
         //creates string builder
